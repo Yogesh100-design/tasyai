@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard'
 import FoundTalent from './pages/FoundTalent'
 import Profile from './pages/Profile'
 import CreateCompanyProfile from './pages/AddCompony'
+import OnboardingChatbot from './pages/OnboardingChatbot'
 
 function App() {
   return (
@@ -22,6 +23,7 @@ function App() {
         <Route path="*" element={<NotFound />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/CreateCompanyProfile" element={<CreateCompanyProfile />} />
+        <Route path="/OnboardingChatbot" element={<OnboardingChatbot />} />
       </Routes>
     </BrowserRouter>
   )

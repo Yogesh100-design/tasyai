@@ -65,7 +65,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             </Link>
             
             <Link 
-              to="#" 
+              to="/dashboard" 
               className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-white transition-all"
             >
               <Star className="size-[22px]" />
@@ -73,7 +73,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             </Link>
             
             <Link 
-              to="#" 
+              to="/profile" 
               className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-white transition-all"
             >
               <User className="size-[22px]" />
@@ -81,7 +81,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             </Link>
             
             <Link 
-              to="#" 
+              to="/dashboard" 
               className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-white transition-all"
             >
               <Book className="size-[22px]" />
@@ -104,7 +104,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           {/* Bottom Section */}
           <div className="mt-auto pt-6 border-t border-white/10">
             <Link 
-              to="#" 
+              to="/profile" 
               className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-white transition-all"
             >
               <Settings className="size-[22px]" />
@@ -112,7 +112,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             </Link>
             
             {/* Profile */}
-            <div className="mt-4 flex items-center gap-3 px-2">
+            <Link to="/profile" className="mt-4 flex items-center gap-3 px-2 hover:bg-white/5 rounded-xl py-2 transition-colors">
               <div className="size-10 rounded-full border border-white/10 overflow-hidden bg-gradient-to-br from-primary/30 to-purple-500/30">
                 <div className="w-full h-full flex items-center justify-center text-white font-bold text-sm">
                   AR
@@ -122,7 +122,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                 <p className="text-sm font-semibold text-white truncate">Alex Rivera</p>
                 <p className="text-xs text-slate-500 truncate">Product Designer</p>
               </div>
-            </div>
+            </Link>
           </div>
         </div>
       </aside>

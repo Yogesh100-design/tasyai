@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Sidebar from '../components/Sidebar';
 import { 
@@ -28,6 +29,7 @@ import {
 } from 'lucide-react';
 
 const Dashboard = () => {
+  const navigate = useNavigate();
   const [activeFilter, setActiveFilter] = useState('All Roles');
   const [searchQuery, setSearchQuery] = useState('');
   const [savedCompanies, setSavedCompanies] = useState(['Nebula Systems']);
@@ -165,6 +167,7 @@ const Dashboard = () => {
                 </div>
               </div>
               <motion.button 
+                onClick={() => navigate('/CreateCompanyProfile')}
                 whileHover={{ scale: 1.02 }}
                 whileTap={{ scale: 0.98 }}
                 className="shrink-0 py-3 px-6 bg-gradient-to-r from-[#6467f2] to-indigo-500 hover:from-indigo-500 hover:to-[#6467f2] text-white font-semibold rounded-xl flex items-center justify-center gap-2 transition-all indigo-glow"

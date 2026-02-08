@@ -19,7 +19,10 @@ import {
   Trash2
 } from 'lucide-react';
 
+import { useNavigate } from 'react-router-dom';
+
 const CreateCompanyProfile = () => {
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     companyName: 'Nexa Dynamics',
     tagline: 'The future of decentralized compute',
@@ -108,8 +111,9 @@ const CreateCompanyProfile = () => {
             <h1 className="text-white text-xl font-bold tracking-tight">Startup Hub</h1>
           </div>
           <div className="flex items-center gap-6">
-            <button className="text-slate-400 hover:text-white transition-colors font-medium">Cancel</button>
+            <button onClick={() => navigate('/dashboard')} className="text-slate-400 hover:text-white transition-colors font-medium">Cancel</button>
             <motion.button 
+              onClick={() => navigate('/dashboard')}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="px-6 py-2.5 bg-[#4245f0] hover:bg-[#4245f0]/90 text-white font-bold rounded-lg transition-all shadow-lg shadow-[#4245f0]/20 flex items-center gap-2"
