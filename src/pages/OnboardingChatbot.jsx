@@ -1,5 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { useNavigate } from 'react-router-dom';
 import { 
   Bot,
   Rocket,
@@ -16,6 +17,7 @@ import {
 } from 'lucide-react';
 
 const OnboardingChatbot = ({ onComplete }) => {
+  const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
   const [userData, setUserData] = useState({
     role: '',
@@ -208,12 +210,13 @@ const OnboardingChatbot = ({ onComplete }) => {
       onComplete(userData);
     }
     console.log('Profile completed:', userData);
+    navigate('/profile');
   };
 
   const currentStepData = steps[currentStep];
 
   return (
-    <div className="bg-[#020617] text-slate-100 font-sans min-h-screen relative overflow-hidden flex items-center justify-center">
+    <div className="bg-[#020617] text-slate-100 font-sans fixed inset-0 overflow-hidden flex items-center justify-center">
       {/* Global Styles */}
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
@@ -265,9 +268,9 @@ const OnboardingChatbot = ({ onComplete }) => {
       <div className="ambient-glow top-[-10%] left-[-10%]"></div>
       <div className="ambient-glow bottom-[-10%] right-[-10%]"></div>
 
-      <div className="relative w-full max-w-4xl h-[90vh] flex flex-col p-4 md:p-8">
+      <div className="relative w-full max-w-4xl h-[90vh] flex items-center justify-center p-4 md:p-8">
         {/* Main Chat Container */}
-        <div className="glass-container flex-1 flex flex-col rounded-xl overflow-hidden shadow-2xl">
+        <div className="glass-container w-full h-full flex flex-col rounded-xl overflow-hidden shadow-2xl">
           {/* Top Bar */}
           <header className="flex items-center justify-between px-6 py-4 border-b border-white/10">
             <div className="flex items-center gap-3">
@@ -368,25 +371,7 @@ const OnboardingChatbot = ({ onComplete }) => {
                   </motion.button>
                 )}
 
-                {/* Input Field */}
-                {currentStepData.input && (
-                  <form onSubmit={handleInputSubmit} className="relative">
-                    <input
-                      type="text"
-                      value={inputValue}
-                      onChange={(e) => setInputValue(e.target.value)}
-                      placeholder={currentStepData.placeholder}
-                      className="w-full bg-white/5 border border-white/10 rounded-xl py-4 pl-6 pr-14 text-white focus:outline-none focus:ring-2 focus:ring-[#5a5cf2]/50 focus:border-[#5a5cf2] transition-all placeholder:text-slate-500"
-                      autoFocus
-                    />
-                    <button
-                      type="submit"
-                      className="absolute right-2 top-2 bottom-2 w-10 h-10 bg-[#5a5cf2] text-white rounded-lg flex items-center justify-center shadow-lg shadow-[#5a5cf2]/20 hover:brightness-110 transition-all"
-                    >
-                      <Send className="size-4" />
-                    </button>
-                  </form>
-                )}
+
               </motion.div>
             )}
 
