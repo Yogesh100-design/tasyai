@@ -6,6 +6,7 @@ import ResetPassword from './pages/ResetPassword'
 import NotFound from './pages/NotFound'
 import Dashboard from './pages/Dashboard'
 import FoundTalent from './pages/FoundTalent'
+import Profile from './pages/Profile'
 
 function App() {
   return (
@@ -18,6 +19,7 @@ function App() {
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/found-talent" element={<FoundTalent />} />
         <Route path="*" element={<NotFound />} />
+        <Route path="/profile" element={<Profile />} />
       </Routes>
     </BrowserRouter>
   )
