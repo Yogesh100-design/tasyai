@@ -9,7 +9,7 @@ import {
 
 const NotFound = () => {
   return (
-    <div className="min-h-screen bg-[#020617] font-sans overflow-hidden antialiased">
+    <div className="min-h-screen bg-[#020617] font-sans overflow-x-hidden antialiased">
       {/* Global Styles */}
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
@@ -164,40 +164,14 @@ const NotFound = () => {
               transition={{ delay: 0.3, duration: 0.6 }}
               className="mt-12 flex justify-center"
             >
-              <div className="relative w-48 h-48">
+              <div className="relative w-64 h-64">
                 <div className="absolute inset-0 bg-[#4245f0]/20 rounded-full blur-2xl animate-pulse"></div>
-                {/* Astronaut SVG Illustration */}
-                <svg 
-                  viewBox="0 0 200 200" 
-                  className="w-full h-full relative z-10 drop-shadow-2xl"
-                  fill="none"
-                >
-                  {/* Astronaut Body */}
-                  <circle cx="100" cy="80" r="40" fill="rgba(255,255,255,0.1)" stroke="#4245f0" strokeWidth="2"/>
-                  <circle cx="100" cy="80" r="30" fill="#1e293b" stroke="#4245f0" strokeWidth="1"/>
-                  <circle cx="100" cy="80" r="20" fill="#0f172a"/>
-                  
-                  {/* Visor Reflection */}
-                  <ellipse cx="90" cy="75" rx="8" ry="5" fill="rgba(66,69,240,0.6)"/>
-                  
-                  {/* Body */}
-                  <path d="M70 120 Q100 140 130 120 L130 160 Q100 180 70 160 Z" fill="rgba(255,255,255,0.05)" stroke="#4245f0" strokeWidth="2"/>
-                  
-                  {/* Backpack */}
-                  <rect x="50" y="100" width="20" height="60" rx="5" fill="rgba(66,69,240,0.2)" stroke="#4245f0" strokeWidth="1"/>
-                  <rect x="130" y="100" width="20" height="60" rx="5" fill="rgba(66,69,240,0.2)" stroke="#4245f0" strokeWidth="1"/>
-                  
-                  {/* Floating Particles */}
-                  <circle cx="40" cy="60" r="2" fill="#4245f0" opacity="0.6">
-                    <animate attributeName="cy" values="60;50;60" dur="3s" repeatCount="indefinite"/>
-                  </circle>
-                  <circle cx="160" cy="100" r="3" fill="#14b8a6" opacity="0.6">
-                    <animate attributeName="cy" values="100;90;100" dur="4s" repeatCount="indefinite"/>
-                  </circle>
-                  <circle cx="150" cy="40" r="2" fill="#6366f1" opacity="0.6">
-                    <animate attributeName="cy" values="40;30;40" dur="2.5s" repeatCount="indefinite"/>
-                  </circle>
-                </svg>
+                {/* Astronaut Image */}
+                <img 
+                  src="https://lh3.googleusercontent.com/aida-public/AB6AXuDqSRd469v379HZ3B6UB5pn4nEUrwRqrQ-H5J6uX-uFQGC7b8UMqt27ILEYXbNiWjCF3nrdqJ9Kk7-SFldNWfOjGZln-aH7xbFHCIQlF2SzuCppHrsYNhR6_rY5TD9I6NjrStkNIECdiEXevOnCsASgWh8iDRvCy8y7j2Ua6hkIWMNQ-krDM8C19zP2xLfdTzGn0jRBeeHcKH465S8XEx_quCQ0GK3Eg1ONqEE4NeVrjKzp-UpQlFtQ6niMsVdxkTSAnLYHWIktnAU" 
+                  alt="Lost Astronaut" 
+                  className="relative z-10 w-full h-full object-cover rounded-2xl shadow-2xl border border-white/10"
+                />
               </div>
             </motion.div>
           </motion.div>
