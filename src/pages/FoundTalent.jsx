@@ -15,7 +15,10 @@ import {
   Menu
 } from 'lucide-react';
 
+import { useNavigate } from 'react-router-dom';
+
 const FoundTalent = () => {
+  const navigate = useNavigate();
   const [activeRole, setActiveRole] = useState('All Roles');
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   
@@ -225,6 +228,7 @@ const FoundTalent = () => {
               Edit Company
             </button>
             <motion.button 
+              onClick={() => navigate('/CreateCompanyProfile')}
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
               className="px-5 py-2.5 text-sm font-semibold rounded-lg gradient-primary text-white shadow-xl shadow-[#4245f0]/20 flex items-center gap-2 hover:opacity-90 transition-all"
