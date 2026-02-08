@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import Sidebar from '../components/Sidebar';
 import { 
   Rocket,
   Compass,
@@ -22,13 +23,15 @@ import {
   Cloud,
   HeartPulse,
   Bot,
-  Shield
+  Shield,
+  Menu
 } from 'lucide-react';
 
 const Dashboard = () => {
   const [activeFilter, setActiveFilter] = useState('All Roles');
   const [searchQuery, setSearchQuery] = useState('');
   const [savedCompanies, setSavedCompanies] = useState(['Nebula Systems']);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const filters = [
     { name: 'All Roles', icon: null },
@@ -127,24 +130,6 @@ const Dashboard = () => {
           background-color: #020617;
         }
         
-        .glass-effect {
-          background: rgba(255, 255, 255, 0.05);
-          backdrop-filter: blur(12px);
-          -webkit-backdrop-filter: blur(12px);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .sidebar-glass {
-          background: rgba(15, 23, 42, 0.6);
-          backdrop-filter: blur(20px);
-          -webkit-backdrop-filter: blur(20px);
-          border-right: 1px solid rgba(255, 255, 255, 0.08);
-        }
-        
-        .indigo-glow {
-          box-shadow: 0 0 20px rgba(100, 103, 242, 0.3);
-        }
-        
         ::-webkit-scrollbar {
           width: 6px;
         }
@@ -159,76 +144,25 @@ const Dashboard = () => {
         }
       `}</style>
 
-      <div className="flex h-screen w-full">
-        {/* Sidebar */}
-        <aside className="w-72 h-full flex flex-col sidebar-glass fixed left-0 top-0 z-50">
-          <div className="p-8 flex flex-col h-full">
-            {/* Logo */}
-            <div className="flex items-center gap-3 mb-10">
-              <div className="size-10 rounded-lg bg-gradient-to-br from-[#6467f2] to-indigo-400 flex items-center justify-center indigo-glow">
-                <Rocket className="text-white size-5 font-bold" />
-              </div>
-              <div>
-                <h1 className="text-xl font-bold tracking-tight text-white">StartupCollab</h1>
-                <p className="text-xs text-slate-400">Discovery Engine</p>
-              </div>
-            </div>
-
-            {/* Navigation */}
-            <nav className="flex-1 space-y-2">
-              <a href="#" className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#6467f2]/20 text-[#6467f2] border border-[#6467f2]/20 transition-colors">
-                <Compass className="size-[22px] fill-current" />
-                <span className="text-sm font-semibold">Discover Companies</span>
-              </a>
-              <a href="#" className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-white transition-all">
-                <Star className="size-[22px]" />
-                <span className="text-sm font-medium">My Interests</span>
-              </a>
-              <a href="#" className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-white transition-all">
-                <User className="size-[22px]" />
-                <span className="text-sm font-medium">My Profile</span>
-              </a>
-              <a href="#" className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-white transition-all">
-                <Book className="size-[22px]" />
-                <span className="text-sm font-medium">Saved Companies</span>
-              </a>
-                   <a href="#" className="flex items-center gap-3 px-4 py-3 rounded-xl bg-[#6467f2]/20 text-[#6467f2] border border-[#6467f2]/20 transition-colors">
-                <User className="size-[22px] fill-current" />
-                <span className="text-sm font-semibold">Peoples</span>
-              </a>
-            </nav>
-
-            {/* Bottom Section */}
-            <div className="mt-auto pt-6 border-t border-white/10">
-              <a href="#" className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-white transition-all">
-                <Settings className="size-[22px]" />
-                <span className="text-sm font-medium">Settings</span>
-              </a>
-              
-              {/* Profile */}
-              <div className="mt-4 flex items-center gap-3 px-2">
-                <div className="size-10 rounded-full border border-white/10 overflow-hidden bg-gradient-to-br from-primary/30 to-purple-500/30">
-                  <div className="w-full h-full flex items-center justify-center text-white font-bold text-sm">
-                    AR
-                  </div>
-                </div>
-                <div className="overflow-hidden">
-                  <p className="text-sm font-semibold text-white truncate">Alex Rivera</p>
-                  <p className="text-xs text-slate-500 truncate">Product Designer</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </aside>
+      <div className="flex h-screen w-full relative">
+        <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
 
         {/* Main Content */}
-        <main className="flex-1 ml-72 overflow-y-auto h-full bg-[#020617]">
+        <main className={`flex-1 overflow-y-auto h-full bg-[#020617] transition-all duration-300 ${isSidebarOpen ? 'ml-72' : 'ml-0'}`}>
           <div className="max-w-7xl mx-auto p-10 pb-20">
             {/* Header */}
             <header className="mb-10 flex items-start justify-between gap-6">
-              <div>
-                <h2 className="text-4xl font-extrabold text-white tracking-tight mb-2">Discover Companies</h2>
-                <p className="text-slate-400 text-lg">Collaborate with high-growth startups looking for world-class talent.</p>
+              <div className="flex items-center gap-4">
+                <button
+                  onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                  className="p-2 rounded-lg hover:bg-white/10 text-white transition-colors"
+                >
+                  <Menu className="size-6" />
+                </button>
+                <div>
+                  <h2 className="text-4xl font-extrabold text-white tracking-tight mb-2">Discover Companies</h2>
+                  <p className="text-slate-400 text-lg">Collaborate with high-growth startups looking for world-class talent.</p>
+                </div>
               </div>
               <motion.button 
                 whileHover={{ scale: 1.02 }}
