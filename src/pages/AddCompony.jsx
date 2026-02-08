@@ -392,7 +392,7 @@ const CreateCompanyProfile = () => {
 
           {/* Right Column - Preview */}
           <aside className="w-full lg:w-[420px]">
-            <div className="sticky top-32 space-y-6">
+            <div className="sticky top-24 space-y-6">
               <div className="flex items-center justify-between px-2">
                 <h3 className="text-sm font-bold uppercase tracking-[0.2em] text-slate-500">Real-time Preview</h3>
                 <div className="flex items-center gap-2">
@@ -416,7 +416,7 @@ const CreateCompanyProfile = () => {
                 </div>
 
                 {/* Content */}
-                <div className="px-8 pb-8 -mt-10">
+                <div className="px-8 pb-8 mt-10">
                   <div className="w-20 h-20 rounded-2xl bg-slate-950 border-4 border-slate-950 shadow-2xl mb-6 overflow-hidden flex items-center justify-center bg-gradient-to-br from-indigo-500 to-purple-600">
                     <span className="text-2xl font-bold text-white">
                       {formData.companyName.split(' ').map(n => n[0]).join('').substring(0, 2).toUpperCase()}
