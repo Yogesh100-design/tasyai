@@ -4,13 +4,13 @@ import {
   Rocket,
   ChevronDown,
   Plus,
-  Visibility,
+  Eye,
   Zap,
   TrendingUp,
-  FilterList,
-  Sort,
-  BookmarkBorder,
-  PersonAdd
+  Filter,
+  ArrowUpDown,
+  Bookmark,
+  UserPlus
 } from 'lucide-react';
 
 const FoundTalent = () => {
@@ -97,7 +97,7 @@ const FoundTalent = () => {
   ];
 
   const stats = [
-    { label: 'Total Views', value: '14.2k', icon: Visibility, color: 'primary' },
+    { label: 'Total Views', value: '14.2k', icon: Eye, color: 'primary' },
     { label: 'New Interests', value: '128', icon: Zap, color: 'emerald' },
     { label: 'Conversion Rate', value: '4.8%', icon: TrendingUp, color: 'amber' }
   ];
@@ -293,10 +293,10 @@ const FoundTalent = () => {
             </h2>
             <div className="flex items-center gap-3">
               <button className="glass p-2 rounded-lg flex items-center justify-center hover:bg-white/10">
-                <FilterList className="size-5" />
+                <Filter className="size-5" />
               </button>
               <button className="glass p-2 rounded-lg flex items-center justify-center hover:bg-white/10">
-                <Sort className="size-5" />
+                <ArrowUpDown className="size-5" />
               </button>
             </div>
           </div>
@@ -356,7 +356,7 @@ const FoundTalent = () => {
                     View Profile
                   </button>
                   <button className="p-2.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition-all group/btn">
-                    <BookmarkBorder className="size-5 text-slate-400 group-hover/btn:text-[#4245f0]" />
+                    <Bookmark className="size-5 text-slate-400 group-hover/btn:text-[#4245f0]" />
                   </button>
                   <motion.button 
                     whileHover={{ scale: 1.02 }}
@@ -372,7 +372,7 @@ const FoundTalent = () => {
             {/* Empty State Card */}
             <div className="glass p-6 rounded-xl flex flex-col items-center justify-center opacity-50 border-dashed border-2 border-white/10 min-h-[320px]">
               <div className="w-16 h-16 rounded-full bg-white/5 flex items-center justify-center mb-4">
-                <PersonAdd className="size-8" />
+                <UserPlus className="size-8" />
               </div>
               <div className="text-center space-y-1">
                 <h3 className="font-bold">Discover more talent</h3>
