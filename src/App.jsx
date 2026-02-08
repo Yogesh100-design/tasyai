@@ -7,6 +7,7 @@ import NotFound from './pages/NotFound'
 import Dashboard from './pages/Dashboard'
 import FoundTalent from './pages/FoundTalent'
 import Profile from './pages/Profile'
+import CreateCompanyProfile from './pages/AddCompony'
 
 function App() {
   return (
@@ -20,6 +21,7 @@ function App() {
         <Route path="/found-talent" element={<FoundTalent />} />
         <Route path="*" element={<NotFound />} />
         <Route path="/profile" element={<Profile />} />
+        <Route path="/CreateCompanyProfile" element={<CreateCompanyProfile />} />
       </Routes>
     </BrowserRouter>
   )
