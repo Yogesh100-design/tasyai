@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
   Rocket, 
@@ -13,6 +13,7 @@ import {
 } from 'lucide-react';
 
 const Register = () => {
+  const navigate = useNavigate();
   const [showPassword, setShowPassword] = useState(false);
   const [formData, setFormData] = useState({
     fullName: '',
@@ -211,10 +212,11 @@ const Register = () => {
             <motion.button
               whileHover={{ scale: 1.02 }}
               whileTap={{ scale: 0.98 }}
-              type="submit"
+              type="button"
+              onClick={() => navigate('/OnboardingChatbot')}
               className="w-full bg-[#5a5cf2] hover:bg-[#5a5cf2]/90 text-white font-bold py-4 rounded-full shadow-lg shadow-[#5a5cf2]/30 transition-all flex items-center justify-center gap-2 group"
             >
-              Create Account
+              Start Onboarding
               <ArrowRight className="size-5 group-hover:translate-x-1 transition-transform" />
             </motion.button>
 
