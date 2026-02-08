@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
+import Sidebar from '../components/Sidebar';
 import { 
   Rocket,
   ChevronDown,
@@ -10,11 +11,14 @@ import {
   Filter,
   ArrowUpDown,
   Bookmark,
-  UserPlus
+  UserPlus,
+  Menu
 } from 'lucide-react';
 
 const FoundTalent = () => {
   const [activeRole, setActiveRole] = useState('All Roles');
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  
   const [candidates, setCandidates] = useState([
     {
       id: 1,
@@ -123,7 +127,7 @@ const FoundTalent = () => {
   };
 
   return (
-    <div className="bg-[#020617] text-slate-100 font-sans min-h-screen">
+    <div className="bg-[#020617] text-slate-100 font-sans min-h-screen overflow-hidden h-screen">
       {/* Global Styles */}
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
@@ -177,12 +181,23 @@ const FoundTalent = () => {
         }
       `}</style>
 
-      {/* Header */}
-      <header className="sticky top-0 z-50 w-full glass border-b border-white/10 px-6 py-4">
-        <div className="max-w-[1600px] mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-8">
-            {/* Branding */}
-            <div className="flex items-center gap-3">
+      <div className="flex h-screen w-full relative">
+        <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
+
+        <main className={`flex-1 overflow-y-auto h-full bg-[#020617] transition-all duration-300 ${isSidebarOpen ? 'ml-72' : 'ml-0'}`}>
+          {/* Header */}
+          <header className="sticky top-0 z-50 w-full glass border-b border-white/10 px-6 py-4">
+            <div className="max-w-[1600px] mx-auto flex items-center justify-between">
+              <div className="flex items-center gap-6">
+                <button 
+                  onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+                  className="p-2 rounded-lg hover:bg-white/10 text-white transition-colors"
+                >
+                  <Menu className="size-6" />
+                </button>
+                
+                {/* Branding */}
+                <div className="flex items-center gap-3">
               <div className="w-10 h-10 gradient-primary rounded-lg flex items-center justify-center shadow-lg shadow-[#4245f0]/20">
                 <Rocket className="text-white size-5" />
               </div>
@@ -227,7 +242,7 @@ const FoundTalent = () => {
         </div>
       </header>
 
-      <main className="max-w-[1600px] mx-auto px-6 py-8 space-y-8">
+      <div className="max-w-[1600px] mx-auto px-6 py-8 space-y-8">
         {/* Insights Bar */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           {stats.map((stat, index) => {
@@ -394,8 +409,10 @@ const FoundTalent = () => {
             <a href="#" className="hover:text-[#4245f0] transition-colors">System Status</a>
           </div>
         </footer>
-      </main>
-    </div>
+      </div>
+    </main>
+  </div>
+</div>
   );
 };
 
