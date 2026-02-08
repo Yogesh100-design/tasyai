@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
   Mail, 
@@ -125,7 +126,7 @@ const Login = () => {
             <div className="space-y-2">
               <div className="flex justify-between items-center ml-1">
                 <label className="block text-slate-300 text-sm font-medium">Password</label>
-                <a href="#" className="text-[#6467f2] text-xs font-semibold hover:underline">Forgot password?</a>
+                <Link to="/reset-password" className="text-[#6467f2] text-xs font-semibold hover:underline">Forgot password?</Link>
               </div>
               <div className="relative group">
                 <Lock className="absolute left-4 top-1/2 -translate-y-1/2 text-slate-500 size-5 group-focus-within:text-[#6467f2] transition-colors" />
@@ -199,7 +200,7 @@ const Login = () => {
           <div className="mt-10 text-center">
             <p className="text-slate-400 text-sm">
               Don't have an account? 
-              <a href="#" className="text-[#6467f2] font-bold hover:underline ml-1">Create an account</a>
+              <Link to="/register" className="text-[#6467f2] font-bold hover:underline ml-1">Create an account</Link>
             </p>
           </div>
         </motion.div>

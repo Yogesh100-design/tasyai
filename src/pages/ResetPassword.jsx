@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
   Mail, 
@@ -25,7 +26,7 @@ const ResetPassword = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#020617] flex flex-col font-sans overflow-hidden relative">
+    <div className="min-h-screen bg-[#020617] flex flex-col font-sans overflow-x-hidden relative">
       {/* Global Styles */}
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
@@ -190,13 +191,13 @@ const ResetPassword = () => {
           <div className="mt-10 pt-8 border-t border-white/10 text-center">
             <p className="text-slate-400 font-medium">
               Remember your password? 
-              <a 
-                href="#" 
+              <Link 
+                to="/login" 
                 className="text-[#4245f0] hover:text-indigo-400 transition-colors font-bold ml-1 inline-flex items-center gap-1 group"
               >
                 Back to Login
                 <ArrowRight className="size-4 group-hover:-translate-x-1 transition-transform rotate-180" />
-              </a>
+              </Link>
             </p>
           </div>
         </motion.div>

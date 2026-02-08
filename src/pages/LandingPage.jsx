@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import { motion, AnimatePresence } from 'framer-motion';
 import { 
   Rocket, 
@@ -52,12 +53,12 @@ const Navbar = () => {
         </nav>
 
         <div className="flex items-center gap-4">
-          <button className="hidden sm:block px-5 py-2 text-sm font-bold text-white/80 hover:text-white transition-all">
+          <Link to="/login" className="hidden sm:block px-5 py-2 text-sm font-bold text-white/80 hover:text-white transition-all">
             Sign In
-          </button>
-          <button className="px-5 py-2 bg-primary text-white text-sm font-bold rounded-lg hover:brightness-110 transition-all shadow-[0_0_20px_rgba(91,43,238,0.3)] hover:shadow-[0_0_30px_rgba(91,43,238,0.5)]">
+          </Link>
+          <Link to="/register" className="px-5 py-2 bg-primary text-white text-sm font-bold rounded-lg hover:brightness-110 transition-all shadow-[0_0_20px_rgba(91,43,238,0.3)] hover:shadow-[0_0_30px_rgba(91,43,238,0.5)]">
             Join the Build
-          </button>
+          </Link>
         </div>
       </div>
     </header>
@@ -102,13 +103,13 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <button className="w-full sm:w-auto px-10 py-4 bg-primary text-white font-bold rounded-xl text-lg hover:scale-105 transition-transform shadow-[0_0_20px_rgba(91,43,238,0.4)] flex items-center justify-center gap-2 group">
+          <Link to="/register" className="w-full sm:w-auto px-10 py-4 bg-primary text-white font-bold rounded-xl text-lg hover:scale-105 transition-transform shadow-[0_0_20px_rgba(91,43,238,0.4)] flex items-center justify-center gap-2 group">
             I’m a Founder
             <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
-          </button>
-          <button className="w-full sm:w-auto px-10 py-4 bg-white/5 backdrop-blur-sm border border-white/10 text-white font-bold rounded-xl text-lg hover:bg-white/10 transition-all flex items-center justify-center gap-2">
+          </Link>
+          <Link to="/register" className="w-full sm:w-auto px-10 py-4 bg-white/5 backdrop-blur-sm border border-white/10 text-white font-bold rounded-xl text-lg hover:bg-white/10 transition-all flex items-center justify-center gap-2">
             I’m Talent
-          </button>
+          </Link>
         </motion.div>
       </div>
     </section>
@@ -316,9 +317,9 @@ const CTA = () => {
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <button className="w-full sm:w-auto px-12 py-5 bg-primary text-white font-bold rounded-2xl text-xl hover:shadow-[0_0_30px_#5b2bee] transition-all hover:scale-105">
+          <Link to="/register" className="w-full sm:w-auto px-12 py-5 bg-primary text-white font-bold rounded-2xl text-xl hover:shadow-[0_0_30px_#5b2bee] transition-all hover:scale-105">
             Start Building
-          </button>
+          </Link>
           <button className="w-full sm:w-auto px-12 py-5 bg-white/5 backdrop-blur-sm border border-white/10 text-white font-bold rounded-2xl text-xl hover:bg-white/10 transition-all">
             Read Manifesto
           </button>

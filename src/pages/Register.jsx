@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { 
   Rocket, 
@@ -99,9 +100,9 @@ const Register = () => {
               <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-[#5a5cf2] transition-all group-hover:w-full" />
             </a>
           ))}
-          <button className="bg-white/5 hover:bg-white/10 text-white border border-white/10 px-6 py-2 rounded-full text-sm font-semibold transition-all backdrop-blur-md hover:border-white/20">
+          <Link to="/login" className="bg-white/5 hover:bg-white/10 text-white border border-white/10 px-6 py-2 rounded-full text-sm font-semibold transition-all backdrop-blur-md hover:border-white/20">
             Login
-          </button>
+          </Link>
         </div>
       </header>
 
@@ -255,7 +256,7 @@ const Register = () => {
             {/* Login Link */}
             <div className="text-center pt-4">
               <p className="text-slate-400 text-sm">
-                Already have an account? <a className="text-[#5a5cf2] font-bold hover:underline" href="#">Login</a>
+                Already have an account? <Link className="text-[#5a5cf2] font-bold hover:underline" to="/login">Login</Link>
               </p>
             </div>
           </form>
