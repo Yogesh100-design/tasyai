@@ -13,42 +13,52 @@ import {
   MapPin,
   Code2,
   Target,
-  Sparkles
+  Sparkles,
+  Upload
 } from 'lucide-react';
 
 const OnboardingChatbot = ({ onComplete }) => {
   const navigate = useNavigate();
   const [currentStep, setCurrentStep] = useState(0);
   const [userData, setUserData] = useState({
-    role: '',
+    name: '',
+    country: '',
     experience: '',
-    location: '',
+    experience_desc: '',
+    role: '',
+    achievements: '',
+    partnership: '',
+    motto: '',
+    time: '',
     skills: [],
-    interests: '',
-    goals: ''
+    skills_experience: '',
+    profile_picture: null,
+    profile_picture_preview: null
   });
   const [inputValue, setInputValue] = useState('');
   const [messages, setMessages] = useState([
     { type: 'bot', content: "Hi! Let's set up your profile 👋", delay: 0 },
-    { type: 'bot', content: "What role best describes your position in the startup ecosystem?", delay: 500 }
+    { type: 'bot', content: "First, what's your full name?", delay: 500 }
   ]);
   const [isTyping, setIsTyping] = useState(false);
   const [selectedOptions, setSelectedOptions] = useState([]);
   const messagesEndRef = useRef(null);
 
-  const totalSteps = 7;
+  const totalSteps = 13;
   const progress = ((currentStep + 1) / totalSteps) * 100;
 
   const steps = [
     {
-      id: 'role',
-      question: "What role best describes your position in the startup ecosystem?",
-      options: [
-        { id: 'founder', label: 'Founder', icon: Rocket, desc: 'Building the vision and managing the core team.' },
-        { id: 'employee', label: 'Employee / Collaborator', icon: Users, desc: 'Contributing expertise to help the startup scale.' },
-        { id: 'investor', label: 'Investor', icon: DollarSign, desc: 'Providing capital and strategic guidance.' },
-        { id: 'other', label: 'Other', icon: MoreHorizontal, desc: 'Mentors, advisors, or curious explorers.' }
-      ]
+      id: 'name',
+      question: "First, what's your full name?",
+      input: true,
+      placeholder: "e.g., John Doe"
+    },
+    {
+      id: 'country',
+      question: "Which country are you from?",
+      input: true,
+      placeholder: "e.g., USA, India, UK"
     },
     {
       id: 'experience',
@@ -61,10 +71,46 @@ const OnboardingChatbot = ({ onComplete }) => {
       ]
     },
     {
-      id: 'location',
-      question: "Where are you currently based?",
+      id: 'experience_desc',
+      question: "Could you briefly describe your experience?",
       input: true,
-      placeholder: "e.g., San Francisco, CA or Remote"
+      placeholder: "e.g., Worked on 2 SaaS products..."
+    },
+    {
+      id: 'role',
+      question: "What role best describes your position?",
+      options: [
+        { id: 'founder', label: 'Founder', icon: Rocket, desc: 'Building the vision.' },
+        { id: 'developer', label: 'Developer', icon: Code2, desc: 'Building the product.' },
+        { id: 'designer', label: 'Designer', icon: Sparkles, desc: 'Crafting experiences.' },
+        { id: 'educator', label: 'Educator', icon: Users, desc: 'Sharing knowledge.' },
+        { id: 'investor', label: 'Investor', icon: DollarSign, desc: 'Providing capital.' },
+        { id: 'other', label: 'Other', icon: MoreHorizontal, desc: 'Mentor / Advisor' }
+      ]
+    },
+    {
+      id: 'achievements',
+      question: "What are your key achievements?",
+      input: true,
+      placeholder: "e.g., Scaled app to 10k users..."
+    },
+    {
+      id: 'partnership',
+      question: "What kind of partnership are you looking for?",
+      input: true,
+      placeholder: "e.g., Co-founder, Mentor, Networking"
+    },
+    {
+      id: 'motto',
+      question: "What is your motto to join?",
+      input: true,
+      placeholder: "e.g., Learn whilst building"
+    },
+    {
+      id: 'time',
+      question: "How much time can you give per week?",
+      input: true,
+      placeholder: "e.g., 20 hours, Full-time"
     },
     {
       id: 'skills',
@@ -80,21 +126,15 @@ const OnboardingChatbot = ({ onComplete }) => {
       ]
     },
     {
-      id: 'interests',
-      question: "What industries are you most interested in?",
+      id: 'skills_experience',
+      question: "Briefly describe your experience in these skills.",
       input: true,
-      placeholder: "e.g., AI, FinTech, HealthTech, Climate..."
+      placeholder: "e.g., 3 years in React, 1 year in Node..."
     },
     {
-      id: 'goals',
-      question: "What's your main goal on this platform?",
-      options: [
-        { id: 'find-cofounder', label: 'Find a Co-founder', icon: Users },
-        { id: 'find-job', label: 'Find a Job', icon: Briefcase },
-        { id: 'hire-talent', label: 'Hire Talent', icon: Rocket },
-        { id: 'invest', label: 'Invest in Startups', icon: DollarSign },
-        { id: 'network', label: 'Network & Learn', icon: Sparkles }
-      ]
+      id: 'profile_picture',
+      question: "Please upload a profile picture.",
+      file: true
     },
     {
       id: 'complete',
@@ -173,6 +213,32 @@ const OnboardingChatbot = ({ onComplete }) => {
         addMessage('bot', nextStep.question, 500);
       }
     }, 1000);
+  };
+
+  const handleFileSelect = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    const imageUrl = URL.createObjectURL(file);
+    
+    setUserData(prev => ({ 
+      ...prev, 
+      [steps[currentStep].id]: file,
+      profile_picture_preview: imageUrl 
+    }));
+    
+    addMessage('user', 'Uploaded Profile Picture', 300);
+    setIsTyping(true);
+    
+    setTimeout(() => {
+      setCurrentStep(prev => prev + 1);
+      setIsTyping(false);
+      
+      const nextStep = steps[currentStep + 1];
+      if (nextStep) {
+        addMessage('bot', nextStep.question, 500);
+      }
+    }, 1500);
   };
 
   const handleInputSubmit = (e) => {
@@ -375,6 +441,24 @@ const OnboardingChatbot = ({ onComplete }) => {
               </motion.div>
             )}
 
+            {/* File Upload Area */}
+            {currentStepData?.file && (
+               <motion.div
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="ml-11 max-w-[600px]"
+               >
+                 <label className="cursor-pointer flex flex-col items-center justify-center w-full h-32 border-2 border-dashed border-white/20 rounded-xl bg-white/5 hover:bg-white/10 transition-all group">
+                    <div className="flex flex-col items-center justify-center pt-5 pb-6">
+                        <Upload className="w-8 h-8 text-slate-400 group-hover:text-[#5a5cf2] mb-2 transition-colors" />
+                        <p className="mb-2 text-sm text-slate-400 font-medium">Click to upload image</p>
+                        <p className="text-xs text-slate-500">SVG, PNG, JPG (MAX. 2MB)</p>
+                    </div>
+                    <input type="file" className="hidden" accept="image/*" onChange={handleFileSelect} />
+                 </label>
+               </motion.div>
+            )}
+
             {/* Summary View */}
             {currentStepData?.summary && (
               <motion.div
@@ -385,31 +469,37 @@ const OnboardingChatbot = ({ onComplete }) => {
                 <h3 className="text-lg font-bold text-white mb-4">Your Profile Summary</h3>
                 <div className="space-y-3">
                   <div className="flex justify-between py-2 border-b border-white/10">
-                    <span className="text-slate-400">Role</span>
-                    <span className="text-white font-medium capitalize">{userData.role}</span>
+                    <span className="text-slate-400">Name</span>
+                    <span className="text-white font-medium">{userData.name}</span>
+                  </div>
+                   <div className="flex justify-between py-2 border-b border-white/10">
+                    <span className="text-slate-400">Country</span>
+                    <span className="text-white font-medium">{userData.country}</span>
                   </div>
                   <div className="flex justify-between py-2 border-b border-white/10">
                     <span className="text-slate-400">Experience</span>
                     <span className="text-white font-medium">{userData.experience}</span>
                   </div>
                   <div className="flex justify-between py-2 border-b border-white/10">
-                    <span className="text-slate-400">Location</span>
-                    <span className="text-white font-medium">{userData.location}</span>
+                    <span className="text-slate-400">Role</span>
+                    <span className="text-white font-medium capitalize">{userData.role}</span>
+                  </div>
+                  <div className="flex justify-between py-2 border-b border-white/10">
+                    <span className="text-slate-400">Partnership</span>
+                    <span className="text-white font-medium capitalize">{userData.partnership}</span>
                   </div>
                   <div className="flex justify-between py-2 border-b border-white/10">
                     <span className="text-slate-400">Skills</span>
-                    <span className="text-white font-medium text-right">
+                    <span className="text-white font-medium text-right w-1/2 truncate">
                       {Array.isArray(userData.skills) ? userData.skills.join(', ') : userData.skills}
                     </span>
                   </div>
-                  <div className="flex justify-between py-2 border-b border-white/10">
-                    <span className="text-slate-400">Interests</span>
-                    <span className="text-white font-medium">{userData.interests}</span>
-                  </div>
-                  <div className="flex justify-between py-2">
-                    <span className="text-slate-400">Goal</span>
-                    <span className="text-white font-medium capitalize">{userData.goals?.replace('-', ' ')}</span>
-                  </div>
+                  {userData.profile_picture_preview && (
+                    <div className="flex justify-between py-2">
+                       <span className="text-slate-400">Profile</span>
+                       <img src={userData.profile_picture_preview} alt="Profile" className="w-10 h-10 rounded-full object-cover border border-white/20" />
+                    </div>
+                  )}
                 </div>
                 <button
                   onClick={handleComplete}
@@ -444,7 +534,7 @@ const OnboardingChatbot = ({ onComplete }) => {
 
           {/* Bottom Input Area */}
           <footer className="p-6 border-t border-white/10">
-            {currentStep < totalSteps - 1 && (
+            {currentStep < totalSteps - 1 && !currentStepData?.file && (
               <div className="flex items-center gap-4">
                 <button 
                   onClick={handleSkip}
@@ -471,6 +561,12 @@ const OnboardingChatbot = ({ onComplete }) => {
                   </form>
                 </div>
               </div>
+            )}
+            {/* Hide input area for file upload usage */}
+            {currentStepData?.file && (
+                 <div className="text-slate-400 text-sm text-center italic">
+                   Upload an image to continue
+                 </div>
             )}
             <p className="text-center text-[10px] text-slate-500 mt-4 uppercase tracking-[0.2em]">
               Press <span className="text-slate-300 font-bold">Enter</span> to send
