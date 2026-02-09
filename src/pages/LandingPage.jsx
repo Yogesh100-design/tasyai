@@ -28,15 +28,15 @@ const Navbar = () => {
   return (
     <header 
       className={`fixed top-0 left-0 w-full z-50 px-6 py-4 transition-all duration-300 border-b border-white/5 ${
-        scrolled ? 'bg-background-dark/90 backdrop-blur-md py-3' : 'bg-transparent py-5'
+        scrolled ? 'bg-[#020617]/90 backdrop-blur-md py-3' : 'bg-transparent py-5'
       }`}
     >
       <div className="max-w-7xl mx-auto flex items-center justify-between">
         <div className="flex items-center gap-2 cursor-pointer group">
-          <div className="size-8 bg-primary rounded flex items-center justify-center group-hover:rotate-12 transition-transform">
+          <div className="size-8 bg-indigo-600 rounded flex items-center justify-center group-hover:rotate-12 transition-transform">
             <Code2 className="text-white size-5" />
           </div>
-          <span className="text-xl font-bold tracking-tight text-white group-hover:text-primary transition-colors">BUILDER</span>
+          <span className="text-xl font-bold tracking-tight text-white group-hover:text-indigo-400 transition-colors">BUILDER</span>
         </div>
         
         <nav className="hidden md:flex items-center gap-8">
@@ -44,10 +44,10 @@ const Navbar = () => {
             <a 
               key={item} 
               href={`#${item.toLowerCase()}`} 
-              className="text-sm font-medium text-white/60 hover:text-primary transition-colors relative group"
+              className="text-sm font-medium text-white/60 hover:text-indigo-400 transition-colors relative group"
             >
               {item}
-              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full" />
+              <span className="absolute -bottom-1 left-0 w-0 h-0.5 bg-indigo-500 transition-all group-hover:w-full" />
             </a>
           ))}
         </nav>
@@ -56,7 +56,7 @@ const Navbar = () => {
           <Link to="/login" className="hidden sm:block px-5 py-2 text-sm font-bold text-white/80 hover:text-white transition-all">
             Sign In
           </Link>
-          <Link to="/register" className="px-5 py-2 bg-primary text-white text-sm font-bold rounded-lg hover:brightness-110 transition-all shadow-[0_0_20px_rgba(91,43,238,0.3)] hover:shadow-[0_0_30px_rgba(91,43,238,0.5)]">
+          <Link to="/register" className="px-5 py-2 bg-indigo-600 text-white text-sm font-bold rounded-lg hover:brightness-110 transition-all shadow-[0_0_20px_rgba(99,102,241,0.3)] hover:shadow-[0_0_30px_rgba(99,102,241,0.5)]">
             Join the Build
           </Link>
         </div>
@@ -69,8 +69,8 @@ const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center pt-20 px-6 overflow-hidden">
       {/* Nebula Background */}
-      <div className="absolute inset-0 z-0 bg-background-dark">
-        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-primary/20 rounded-full blur-[120px] animate-pulse" />
+      <div className="absolute inset-0 z-0 bg-[#020617]">
+        <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-[120px] animate-pulse" />
         <div className="absolute bottom-1/4 right-1/4 w-[500px] h-[500px] bg-violet-600/10 rounded-full blur-[120px]" />
       </div>
 
@@ -82,7 +82,7 @@ const Hero = () => {
         >
           <h1 className="text-5xl md:text-7xl lg:text-8xl font-black text-white leading-[1.1] tracking-tight mb-8">
             Don’t Apply for Jobs.<br />
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-primary to-violet-400 italic">
+            <span className="text-transparent bg-clip-text bg-gradient-to-r from-indigo-500 to-violet-400 italic">
               Build Something
             </span> That Matters.
           </h1>
@@ -103,7 +103,7 @@ const Hero = () => {
           transition={{ duration: 0.8, delay: 0.4 }}
           className="flex flex-col sm:flex-row items-center justify-center gap-4"
         >
-          <Link to="/register" className="w-full sm:w-auto px-10 py-4 bg-primary text-white font-bold rounded-xl text-lg hover:scale-105 transition-transform shadow-[0_0_20px_rgba(91,43,238,0.4)] flex items-center justify-center gap-2 group">
+          <Link to="/register" className="w-full sm:w-auto px-10 py-4 bg-indigo-600 text-white font-bold rounded-xl text-lg hover:scale-105 transition-transform shadow-[0_0_20px_rgba(99,102,241,0.4)] flex items-center justify-center gap-2 group">
             I’m a Founder
             <ArrowRight className="size-4 group-hover:translate-x-1 transition-transform" />
           </Link>
@@ -119,14 +119,14 @@ const Hero = () => {
 const Ticker = () => {
   const items = [
     { text: "Ankit matched with AI founder", icon: "pulse", color: "bg-green-500" },
-    { text: "New role: UX Intern (Equity)", icon: "token", color: "text-primary" },
+    { text: "New role: UX Intern (Equity)", icon: "token", color: "text-indigo-400" },
     { text: "Sarah joined FinTech project", icon: "dot", color: "bg-blue-400" },
     { text: "Founder: Need Next.js expert", icon: "terminal", color: "text-violet-400" },
     { text: "Project 'Solaris' reached MVP", icon: "dot", color: "bg-orange-400" },
   ];
 
   return (
-    <div className="py-8 border-y border-white/5 bg-background-dark/50 backdrop-blur-sm relative z-20 overflow-hidden">
+    <div className="py-8 border-y border-white/5 bg-[#020617]/50 backdrop-blur-sm relative z-20 overflow-hidden">
       <div className="ticker-container flex whitespace-nowrap">
         <div className="animate-scroll flex gap-6 px-6 hover:[animation-play-state:paused]">
           {[...items, ...items, ...items].map((item, idx) => (
@@ -157,7 +157,7 @@ const BridgeSection = () => {
 
       <div className="grid md:grid-cols-2 gap-12 md:gap-0 items-center relative">
         {/* Vertical Divider */}
-        <div className="hidden md:block absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-px bg-gradient-to-b from-transparent via-primary/50 to-transparent" />
+        <div className="hidden md:block absolute top-0 bottom-0 left-1/2 -translate-x-1/2 w-px bg-gradient-to-b from-transparent via-indigo-500/50 to-transparent" />
         
         {/* Left: Founder */}
         <motion.div 
@@ -166,8 +166,8 @@ const BridgeSection = () => {
           viewport={{ once: true }}
           className="md:pr-20 flex flex-col items-end text-right gap-6"
         >
-          <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-2xl border-r-4 border-primary/40 max-w-md hover:bg-white/10 transition-all">
-            <p className="text-primary text-xs font-black uppercase tracking-widest mb-2">Founder Persona</p>
+          <div className="bg-white/5 backdrop-blur-sm border border-white/10 p-8 rounded-2xl border-r-4 border-indigo-500/40 max-w-md hover:bg-white/10 transition-all">
+            <p className="text-indigo-400 text-xs font-black uppercase tracking-widest mb-2">Founder Persona</p>
             <p className="text-xl font-medium text-white leading-relaxed">
               "I have the users, but I need to fix onboarding drop-offs before we scale."
             </p>
@@ -180,7 +180,7 @@ const BridgeSection = () => {
 
         {/* Mobile Connector */}
         <div className="md:hidden flex justify-center py-4">
-          <div className="h-12 w-px bg-primary shadow-[0_0_10px_#5b2bee]" />
+          <div className="h-12 w-px bg-indigo-500 shadow-[0_0_10px_#6366f1]" />
         </div>
 
         {/* Right: Talent */}
@@ -203,7 +203,7 @@ const BridgeSection = () => {
         </motion.div>
 
         {/* Central Node */}
-        <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-4 bg-primary rounded-full shadow-[0_0_30px_#5b2bee] animate-pulse" />
+        <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 size-4 bg-indigo-500 rounded-full shadow-[0_0_30px_#6366f1] animate-pulse" />
       </div>
     </section>
   );
@@ -246,13 +246,13 @@ const Timeline = () => {
             <div key={idx} className="relative pl-12 pb-16 border-l border-white/10 last:pb-0 last:border-0 group">
               <div className={`absolute -left-[9px] top-0 size-4 rounded-full transition-all duration-500 ${
                 step.active 
-                  ? 'bg-primary ring-4 ring-primary/20 shadow-[0_0_15px_#5b2bee]' 
-                  : 'bg-white/20 group-hover:bg-primary'
+                  ? 'bg-indigo-600 ring-4 ring-indigo-500/20 shadow-[0_0_15px_#6366f1]' 
+                  : 'bg-white/20 group-hover:bg-indigo-500'
               }`} />
               
               <div className="flex flex-col gap-2">
                 <span className={`font-bold text-sm tracking-widest uppercase ${
-                  step.active ? 'text-primary' : 'text-white/40 group-hover:text-white/60'
+                  step.active ? 'text-indigo-400' : 'text-white/40 group-hover:text-white/60'
                 }`}>
                   {step.num}. {step.title}
                 </span>
@@ -277,9 +277,9 @@ const Values = () => {
       <div className="grid md:grid-cols-2 gap-8">
         <motion.div 
           whileHover={{ y: -5 }}
-          className="bg-white/5 backdrop-blur-sm border border-white/10 p-10 rounded-3xl border-t-2 border-primary hover:bg-white/10 transition-all"
+          className="bg-white/5 backdrop-blur-sm border border-white/10 p-10 rounded-3xl border-t-2 border-indigo-500 hover:bg-white/10 transition-all"
         >
-          <Rocket className="text-primary size-10 mb-6" />
+          <Rocket className="text-indigo-500 size-10 mb-6" />
           <h3 className="text-4xl font-black mb-4 tracking-tighter italic text-white">Build &gt; Resume</h3>
           <p className="text-lg text-white/50 leading-relaxed">
             A list of past employers doesn't tell us what you're capable of doing today. We prioritize your current output and problem-solving velocity over your LinkedIn history.
@@ -305,7 +305,7 @@ const CTA = () => {
   return (
     <section className="py-32 px-6 text-center relative overflow-hidden">
       <div className="absolute inset-0 z-0">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-96 bg-primary/10 rounded-full blur-[150px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full max-w-4xl h-96 bg-indigo-500/10 rounded-full blur-[150px]" />
       </div>
       
       <div className="relative z-10 max-w-3xl mx-auto">
@@ -317,7 +317,7 @@ const CTA = () => {
         </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
-          <Link to="/register" className="w-full sm:w-auto px-12 py-5 bg-primary text-white font-bold rounded-2xl text-xl hover:shadow-[0_0_30px_#5b2bee] transition-all hover:scale-105">
+          <Link to="/register" className="w-full sm:w-auto px-12 py-5 bg-indigo-600 text-white font-bold rounded-2xl text-xl hover:shadow-[0_0_30px_#6366f1] transition-all hover:scale-105">
             Start Building
           </Link>
           <button className="w-full sm:w-auto px-12 py-5 bg-white/5 backdrop-blur-sm border border-white/10 text-white font-bold rounded-2xl text-xl hover:bg-white/10 transition-all">
@@ -331,19 +331,19 @@ const CTA = () => {
 
 const Footer = () => {
   return (
-    <footer className="py-12 px-6 border-t border-white/5 text-center bg-background-dark">
+    <footer className="py-12 px-6 border-t border-white/5 text-center bg-[#020617]">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex items-center gap-2">
-          <Code2 className="text-primary size-6" />
+          <Code2 className="text-indigo-500 size-6" />
           <span className="font-bold tracking-tight text-white">BUILDER v1.0</span>
         </div>
         <p className="text-white/20 text-sm">
           © 2024 Experimental Startup Collaboration Platform. Made for the builders.
         </p>
         <div className="flex gap-6">
-          <a href="#" className="text-white/40 hover:text-primary transition-colors"><Globe size={20} /></a>
-          <a href="#" className="text-white/40 hover:text-primary transition-colors"><Github size={20} /></a>
-          <a href="#" className="text-white/40 hover:text-primary transition-colors"><Rss size={20} /></a>
+          <a href="#" className="text-white/40 hover:text-indigo-400 transition-colors"><Globe size={20} /></a>
+          <a href="#" className="text-white/40 hover:text-indigo-400 transition-colors"><Github size={20} /></a>
+          <a href="#" className="text-white/40 hover:text-indigo-400 transition-colors"><Rss size={20} /></a>
         </div>
       </div>
     </footer>
@@ -354,7 +354,7 @@ const Footer = () => {
 
 const LandingPage = () => {
   return (
-    <div className="min-h-screen bg-background-dark text-white font-sans selection:bg-primary/30">
+    <div className="min-h-screen bg-[#020617] text-white font-sans selection:bg-indigo-500/30">
       <style jsx global>{`
         @keyframes scroll {
           0% { transform: translateX(0); }

@@ -73,14 +73,6 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             </Link>
             
             <Link 
-              to="/profile" 
-              className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-white transition-all"
-            >
-              <User className="size-[22px]" />
-              <span className="text-sm font-medium">My Profile</span>
-            </Link>
-            
-            <Link 
               to="/dashboard" 
               className="flex items-center gap-3 px-4 py-3 rounded-xl text-slate-400 hover:bg-white/5 hover:text-white transition-all"
             >
