@@ -10,7 +10,6 @@ import {
   Send,
   CheckCircle2,
   Briefcase,
-  MapPin,
   Code2,
   Target,
   Sparkles,
@@ -18,7 +17,8 @@ import {
   X,
   Plus,
   ArrowRight,
-  User
+  User,
+  Image as ImageIcon
 } from 'lucide-react';
 
 const OnboardingChatbot = ({ onComplete }) => {
@@ -34,15 +34,15 @@ const OnboardingChatbot = ({ onComplete }) => {
     partnership: '',
     motto: '',
     time: '',
-    skills: [], // Now an array of strings
+    skills: [],
     skills_experience: '',
     profile_picture: null,
     profile_picture_preview: null
   });
   
-  // Input State
   const [inputValue, setInputValue] = useState('');
-  const [skillInput, setSkillInput] = useState(''); // Dedicated state for skill typing
+  const [skillInput, setSkillInput] = useState('');
+  const [isDragging, setIsDragging] = useState(false); // For drag and drop visual state
   
   const [messages, setMessages] = useState([
     { type: 'bot', content: "Hey there! Welcome aboard 👋", delay: 0 },
@@ -52,10 +52,9 @@ const OnboardingChatbot = ({ onComplete }) => {
   
   const [isTyping, setIsTyping] = useState(false);
   const messagesEndRef = useRef(null);
+  const fileInputRef = useRef(null); // Ref to trigger file input programmatically
 
-  const totalSteps = 12; // Adjusted count
-  
-  // Progress calculation
+  const totalSteps = 12;
   const progress = ((currentStep) / (totalSteps - 1)) * 100;
 
   const steps = [
@@ -99,10 +98,9 @@ const OnboardingChatbot = ({ onComplete }) => {
     { id: 'complete', question: "You're all set! Here's your profile:", summary: true }
   ];
 
-  // Auto-scroll effect
   useEffect(() => {
     scrollToBottom();
-  }, [messages, isTyping]);
+  }, [messages, isTyping, userData.profile_picture_preview]);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' });
@@ -114,22 +112,17 @@ const OnboardingChatbot = ({ onComplete }) => {
     }, delay);
   };
 
-  // Handle standard text input submission
   const handleInputSubmit = (e) => {
     e.preventDefault();
     if (!inputValue.trim()) return;
-    
     processStepData(inputValue);
     setInputValue('');
   };
 
-  // Handle adding a skill via Enter key
   const handleSkillKeyDown = (e) => {
     if (e.key === 'Enter') {
       e.preventDefault();
       if (!skillInput.trim()) return;
-      
-      // Add skill to array
       const newSkill = skillInput.trim();
       if (!userData.skills.includes(newSkill)) {
         setUserData(prev => ({ ...prev, skills: [...prev.skills, newSkill] }));
@@ -138,7 +131,6 @@ const OnboardingChatbot = ({ onComplete }) => {
     }
   };
 
-  // Remove a skill chip
   const removeSkill = (skillToRemove) => {
     setUserData(prev => ({
       ...prev,
@@ -146,7 +138,6 @@ const OnboardingChatbot = ({ onComplete }) => {
     }));
   };
 
-  // Confirm skills and move to next step
   const confirmSkills = () => {
     if (userData.skills.length === 0) return;
     const skillsString = userData.skills.join(', ');
@@ -154,7 +145,6 @@ const OnboardingChatbot = ({ onComplete }) => {
     proceedToNextStep();
   };
 
-  // Core logic to move steps forward
   const processStepData = (data) => {
     const currentStepData = steps[currentStep];
     setUserData(prev => ({ ...prev, [currentStepData.id]: data }));
@@ -178,33 +168,71 @@ const OnboardingChatbot = ({ onComplete }) => {
     }, 1000);
   };
 
-  // Handle Option Selection (Cards)
   const handleOptionSelect = (optionId) => {
     const currentStepData = steps[currentStep];
     const selectedOption = currentStepData.options.find(opt => opt.id === optionId);
-    
     setUserData(prev => ({ ...prev, [currentStepData.id]: optionId }));
     addMessage('user', selectedOption.label, 300);
     proceedToNextStep();
   };
 
-  // Handle File Upload
-  const handleFileSelect = (e) => {
-    const file = e.target.files[0];
+  // --- FILE UPLOAD LOGIC ---
+
+  const handleFileChange = (file) => {
     if (!file) return;
+    // Simple validation
+    if (!file.type.startsWith('image/')) {
+        alert('Please upload an image file');
+        return;
+    }
+    if (file.size > 5 * 1024 * 1024) {
+        alert('File size should be less than 5MB');
+        return;
+    }
+
     const imageUrl = URL.createObjectURL(file);
-    
     setUserData(prev => ({ 
       ...prev, 
       profile_picture: file,
       profile_picture_preview: imageUrl 
     }));
-    
+  };
+
+  const handleFileSelect = (e) => {
+    handleFileChange(e.target.files[0]);
+  };
+
+  // Drag and Drop Handlers
+  const handleDragOver = (e) => {
+    e.preventDefault();
+    setIsDragging(true);
+  };
+
+  const handleDragLeave = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+  };
+
+  const handleDrop = (e) => {
+    e.preventDefault();
+    setIsDragging(false);
+    if (e.dataTransfer.files && e.dataTransfer.files[0]) {
+      handleFileChange(e.dataTransfer.files[0]);
+    }
+  };
+
+  const clearFile = () => {
+    setUserData(prev => ({ ...prev, profile_picture: null, profile_picture_preview: null }));
+    if(fileInputRef.current) fileInputRef.current.value = "";
+  };
+
+  const confirmFile = () => {
     addMessage('user', '📎 Uploaded Profile Picture', 300);
     proceedToNextStep();
   };
 
-  // Final Completion
+  // --- END FILE UPLOAD ---
+
   const handleComplete = () => {
     if (onComplete) onComplete(userData);
     console.log('Final Data:', userData);
@@ -215,13 +243,12 @@ const OnboardingChatbot = ({ onComplete }) => {
 
   return (
     <div className="bg-[#020617] text-slate-100 font-sans min-h-screen w-full flex items-center justify-center p-0 md:p-6 overflow-hidden relative">
-      {/* Dynamic Background Elements */}
+      {/* Background */}
       <div className="absolute top-0 left-0 w-full h-full overflow-hidden pointer-events-none z-0">
         <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-indigo-600/20 rounded-full blur-[120px] animate-pulse" />
         <div className="absolute bottom-[-10%] right-[-10%] w-[600px] h-[600px] bg-violet-600/10 rounded-full blur-[120px]" />
       </div>
 
-      {/* Main Container */}
       <div className="relative z-10 w-full max-w-3xl h-[100dvh] md:h-[85vh] flex flex-col bg-[#0B1120]/80 backdrop-blur-xl md:border md:border-white/10 md:rounded-2xl shadow-2xl overflow-hidden">
         
         {/* Header */}
@@ -285,7 +312,7 @@ const OnboardingChatbot = ({ onComplete }) => {
             ))}
           </AnimatePresence>
 
-          {/* Interactive Components Area (Options, Inputs, etc) */}
+          {/* Interactive Components Area */}
           {currentStepData && !isTyping && currentStep < totalSteps - 1 && (
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -293,7 +320,7 @@ const OnboardingChatbot = ({ onComplete }) => {
               transition={{ delay: 0.2 }}
               className="ml-11 mt-2"
             >
-              {/* Option Cards Grid */}
+              {/* Option Cards */}
               {currentStepData.options && (
                 <div className={`grid gap-3 ${currentStepData.options.length > 2 ? 'grid-cols-1 md:grid-cols-2' : 'grid-cols-1'}`}>
                   {currentStepData.options.map((option) => {
@@ -318,24 +345,85 @@ const OnboardingChatbot = ({ onComplete }) => {
                 </div>
               )}
 
-              {/* File Upload Zone */}
+              {/* --- ENHANCED FILE UPLOAD ZONE --- */}
               {currentStepData.file && (
-                <label className="cursor-pointer flex flex-col items-center justify-center w-full h-40 border-2 border-dashed border-slate-700 rounded-xl bg-slate-800/30 hover:bg-slate-800/50 hover:border-indigo-500/50 transition-all group">
-                  <div className="flex flex-col items-center justify-center">
-                    <div className="w-12 h-12 rounded-full bg-slate-700/50 flex items-center justify-center mb-3 group-hover:scale-110 transition-transform">
-                        <Upload className="w-6 h-6 text-slate-400 group-hover:text-indigo-400" />
+                <div className="space-y-4">
+                  {!userData.profile_picture_preview ? (
+                    <div
+                      onDragOver={handleDragOver}
+                      onDragLeave={handleDragLeave}
+                      onDrop={handleDrop}
+                      onClick={() => fileInputRef.current?.click()}
+                      className={`cursor-pointer flex flex-col items-center justify-center w-full h-48 border-2 border-dashed rounded-xl transition-all duration-300 group
+                        ${isDragging 
+                          ? 'border-indigo-500 bg-indigo-500/10 scale-[1.02]' 
+                          : 'border-slate-700 bg-slate-800/30 hover:bg-slate-800/50 hover:border-indigo-500/50'
+                        }`}
+                    >
+                      <div className="flex flex-col items-center justify-center pointer-events-none">
+                        <div className={`w-14 h-14 rounded-full flex items-center justify-center mb-3 transition-all duration-300
+                          ${isDragging ? 'bg-indigo-500 text-white scale-110' : 'bg-slate-700/50 text-slate-400 group-hover:bg-indigo-500/20 group-hover:text-indigo-400'}`}>
+                          <Upload className="w-7 h-7" />
+                        </div>
+                        <p className="text-sm text-slate-300 font-medium">
+                          {isDragging ? 'Drop it here!' : 'Click or Drag photo here'}
+                        </p>
+                        <p className="text-xs text-slate-500 mt-1">SVG, PNG, JPG up to 5MB</p>
+                      </div>
+                      <input 
+                        ref={fileInputRef}
+                        type="file" 
+                        className="hidden" 
+                        accept="image/*" 
+                        onChange={handleFileSelect} 
+                      />
                     </div>
-                    <p className="text-sm text-slate-300 font-medium">Click to upload photo</p>
-                    <p className="text-xs text-slate-500 mt-1">SVG, PNG, JPG up to 5MB</p>
-                  </div>
-                  <input type="file" className="hidden" accept="image/*" onChange={handleFileSelect} />
-                </label>
+                  ) : (
+                    // Preview State
+                    <div className="relative w-full bg-slate-800/40 border border-white/5 rounded-xl p-4 flex flex-col items-center animate-in fade-in zoom-in duration-300">
+                      <div className="relative w-32 h-32 rounded-full overflow-hidden border-4 border-indigo-500/30 shadow-xl mb-4 group">
+                        <img 
+                          src={userData.profile_picture_preview} 
+                          alt="Preview" 
+                          className="w-full h-full object-cover"
+                        />
+                        {/* Hover Overlay to change */}
+                        <div 
+                          onClick={clearFile}
+                          className="absolute inset-0 bg-black/60 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer"
+                        >
+                          <X className="text-white size-6" />
+                        </div>
+                      </div>
+                      
+                      <div className="flex items-center gap-2 text-sm text-slate-400 mb-4">
+                        <ImageIcon className="size-4" />
+                        <span className="truncate max-w-[200px]">{userData.profile_picture?.name}</span>
+                      </div>
+
+                      <div className="flex gap-3 w-full">
+                        <button 
+                          onClick={clearFile}
+                          className="flex-1 py-2.5 rounded-lg border border-slate-600 text-slate-300 hover:bg-slate-800 text-sm font-medium transition-colors"
+                        >
+                          Change
+                        </button>
+                        <button 
+                          onClick={confirmFile}
+                          className="flex-[2] py-2.5 rounded-lg bg-indigo-600 text-white hover:bg-indigo-500 text-sm font-bold shadow-lg shadow-indigo-900/20 transition-colors flex items-center justify-center gap-2"
+                        >
+                          <CheckCircle2 className="size-4" />
+                          Confirm Photo
+                        </button>
+                      </div>
+                    </div>
+                  )}
+                </div>
               )}
 
-              {/* Dynamic Skill Input Section */}
+              {/* Dynamic Skill Input */}
               {currentStepData.isSkillInput && (
                 <div className="space-y-4">
-                  {/* Skill Chips Display */}
                   <div className="flex flex-wrap gap-2 min-h-[40px]">
                     <AnimatePresence>
                       {userData.skills.map((skill) => (
@@ -355,7 +443,6 @@ const OnboardingChatbot = ({ onComplete }) => {
                     </AnimatePresence>
                   </div>
 
-                  {/* Skill Input Field */}
                   <div className="relative">
                     <input
                       type="text"
@@ -370,7 +457,6 @@ const OnboardingChatbot = ({ onComplete }) => {
                     </div>
                   </div>
 
-                  {/* Confirm Button */}
                   {userData.skills.length > 0 && (
                     <motion.button
                       initial={{ opacity: 0, y: 10 }}
@@ -433,7 +519,7 @@ const OnboardingChatbot = ({ onComplete }) => {
             </motion.div>
           )}
 
-          {/* Typing Indicator */}
+          {/* --- WHATSAPP STYLE TYPING INDICATOR --- */}
           {isTyping && (
             <motion.div 
               initial={{ opacity: 0, y: 10 }}
@@ -443,10 +529,27 @@ const OnboardingChatbot = ({ onComplete }) => {
               <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center shrink-0 border border-white/10">
                 <Bot className="text-indigo-400 size-4" />
               </div>
-              <div className="bg-slate-800/80 border border-white/5 px-4 py-3 rounded-2xl rounded-bl-none flex gap-1 items-center h-10">
-                <span className="w-1.5 h-1.5 bg-slate-500 rounded-full animate-bounce [animation-delay:-0.3s]"></span>
-                <span className="w-1.5 h-1.5 bg-slate-500 rounded-full animate-bounce [animation-delay:-0.15s]"></span>
-                <span className="w-1.5 h-1.5 bg-slate-500 rounded-full animate-bounce"></span>
+              
+              {/* The Bubble */}
+              <div className="bg-slate-800/80 border border-white/5 px-4 py-3 rounded-2xl rounded-bl-none flex gap-1 items-center h-10 w-16 justify-center">
+                {/* Dot 1 */}
+                <motion.span 
+                  animate={{ y: [0, -4, 0] }}
+                  transition={{ repeat: Infinity, duration: 0.6, ease: "easeInOut" }}
+                  className="w-1.5 h-1.5 bg-slate-400 rounded-full"
+                />
+                {/* Dot 2 */}
+                <motion.span 
+                  animate={{ y: [0, -4, 0] }}
+                  transition={{ repeat: Infinity, duration: 0.6, ease: "easeInOut", delay: 0.2 }}
+                  className="w-1.5 h-1.5 bg-slate-400 rounded-full"
+                />
+                {/* Dot 3 */}
+                <motion.span 
+                  animate={{ y: [0, -4, 0] }}
+                  transition={{ repeat: Infinity, duration: 0.6, ease: "easeInOut", delay: 0.4 }}
+                  className="w-1.5 h-1.5 bg-slate-400 rounded-full"
+                />
               </div>
             </motion.div>
           )}
@@ -454,7 +557,7 @@ const OnboardingChatbot = ({ onComplete }) => {
           <div ref={messagesEndRef} className="h-4" />
         </main>
 
-        {/* Footer / Input Area */}
+        {/* Footer */}
         <footer className="p-4 md:p-6 bg-[#0B1120]/80 border-t border-white/5 backdrop-blur-md">
           {/* Standard Text Input */}
           {!currentStepData?.options && !currentStepData?.file && !currentStepData?.isSkillInput && !currentStepData?.summary && (
@@ -483,9 +586,9 @@ const OnboardingChatbot = ({ onComplete }) => {
                 Press <span className="text-indigo-400 font-bold">Enter</span> to add a skill
               </div>
           )}
-          {currentStepData?.file && (
+          {currentStepData?.file && !userData.profile_picture_preview && (
               <div className="text-center text-xs text-slate-500">
-                Select a file to continue
+                Drag & drop or click to upload
               </div>
           )}
         </footer>
@@ -494,7 +597,6 @@ const OnboardingChatbot = ({ onComplete }) => {
   );
 };
 
-// Helper component for summary view
 const SummaryItem = ({ label, value }) => (
     <div className="flex flex-col">
         <span className="text-slate-500 text-xs uppercase tracking-wider mb-1">{label}</span>
