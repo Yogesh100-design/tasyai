@@ -48,27 +48,7 @@ const Dashboard = () => {
   return (
     <div className="bg-[#020617] text-white font-sans overflow-hidden h-screen">
       {/* Global Styles */}
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap');
-        
-        body {
-          font-family: 'Inter', sans-serif;
-          background-color: #020617;
-        }
-        
-        ::-webkit-scrollbar {
-          width: 6px;
-        }
-        
-        ::-webkit-scrollbar-track {
-          background: transparent;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 10px;
-        }
-      `}</style>
+
 
       <div className="flex h-screen w-full relative">
         <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />

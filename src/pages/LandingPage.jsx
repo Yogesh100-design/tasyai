@@ -355,18 +355,7 @@ const Footer = () => {
 const LandingPage = () => {
   return (
     <div className="min-h-screen bg-[#020617] text-white font-sans selection:bg-indigo-500/30">
-      <style jsx global>{`
-        @keyframes scroll {
-          0% { transform: translateX(0); }
-          100% { transform: translateX(-50%); }
-        }
-        .animate-scroll {
-          animation: scroll 40s linear infinite;
-        }
-        .ticker-container {
-          mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
-        }
-      `}</style>
+
       
       <Navbar />
       <main>

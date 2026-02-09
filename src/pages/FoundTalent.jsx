@@ -45,57 +45,7 @@ const FoundTalent = () => {
   return (
     <div className="bg-[#020617] text-slate-100 font-sans min-h-screen overflow-hidden h-screen">
       {/* Global Styles */}
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
-        
-        body {
-          font-family: 'Manrope', sans-serif;
-          background-color: #020617;
-        }
-        
-        .glass {
-          background: rgba(255, 255, 255, 0.03);
-          backdrop-filter: blur(12px);
-          -webkit-backdrop-filter: blur(12px);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .glass-hover:hover {
-          background: rgba(255, 255, 255, 0.06);
-          border-color: rgba(255, 255, 255, 0.2);
-          transform: translateY(-2px);
-          transition: all 0.3s ease;
-        }
-        
-        .gradient-primary {
-          background: linear-gradient(135deg, #4245f0 0%, #7c3aed 100%);
-        }
-        
-        ::-webkit-scrollbar {
-          width: 6px;
-          height: 6px;
-        }
-        
-        ::-webkit-scrollbar-track {
-          background: #020617;
-        }
-        
-        ::-webkit-scrollbar-thumb {
-          background: #1e293b;
-          border-radius: 10px;
-        }
-        
-        ::-webkit-scrollbar-thumb:hover {
-          background: #4245f0;
-        }
-        
-        .line-clamp-2 {
-          display: -webkit-box;
-          -webkit-line-clamp: 2;
-          -webkit-box-orient: vertical;
-          overflow: hidden;
-        }
-      `}</style>
+
 
       <div className="flex h-screen w-full relative">
         <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
