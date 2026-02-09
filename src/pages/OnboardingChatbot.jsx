@@ -334,7 +334,7 @@ const OnboardingChatbot = ({ onComplete }) => {
       <div className="ambient-glow top-[-10%] left-[-10%]"></div>
       <div className="ambient-glow bottom-[-10%] right-[-10%]"></div>
 
-      <div className="relative w-full max-w-4xl h-[90vh] flex items-center justify-center p-4 md:p-8">
+      <div className="relative w-full max-w-[95vw] h-[95vh] flex items-center justify-center p-2 md:p-4">
         {/* Main Chat Container */}
         <div className="glass-container w-full h-full flex flex-col rounded-xl overflow-hidden shadow-2xl">
           {/* Top Bar */}
