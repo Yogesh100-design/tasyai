@@ -8,7 +8,8 @@ import {
   Book,
   Settings,
   Menu,
-  LogOut
+  LogOut,
+  Bell
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
@@ -164,6 +165,52 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                     className="text-sm font-medium whitespace-nowrap overflow-hidden"
                   >
                     Saved Companies
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </Link>
+            <Link 
+              to="/dashboard" 
+              className={`flex items-center gap-3 rounded-xl transition-all group ${
+                isOpen ? 'px-4 py-3' : 'p-3 justify-center'
+              } text-slate-400 hover:bg-white/5 hover:text-white`}
+            >
+              <Book className="size-[22px] shrink-0" />
+              <AnimatePresence>
+                {isOpen && (
+                  <motion.span 
+                    variants={textVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="hidden"
+                    className="text-sm font-medium whitespace-nowrap overflow-hidden"
+                  >
+                   my startups
+                  </motion.span>
+                )}
+              </AnimatePresence>
+            </Link>
+            <Link 
+              to="/notifications" 
+              className={`flex items-center gap-3 rounded-xl transition-all group ${
+                isOpen ? 'px-4 py-3' : 'p-3 justify-center'
+              } ${
+                isActive('/notifications')
+                  ? 'bg-[#6467f2]/20 text-[#6467f2] border border-[#6467f2]/20'
+                  : 'text-slate-400 hover:bg-white/5 hover:text-white'
+              }`}
+            >
+              <Bell className={`size-[22px] shrink-0 ${isActive('/notifications') ? 'fill-current' : ''}`} />
+              <AnimatePresence>
+                {isOpen && (
+                  <motion.span 
+                    variants={textVariants}
+                    initial="hidden"
+                    animate="visible"
+                    exit="hidden"
+                    className="text-sm font-medium whitespace-nowrap overflow-hidden"
+                  >
+                    Notifications
                   </motion.span>
                 )}
               </AnimatePresence>

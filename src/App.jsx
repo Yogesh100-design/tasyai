@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard'
 import FoundTalent from './pages/FoundTalent'
 import Profile from './pages/Profile'
 import CreateCompanyProfile from './pages/AddCompany'
+import Notifications from './pages/Notifications'
 import ProfileExpansion from './pages/ProfileExpansion'
 import OnboardingChatbot from './pages/OnboardingChatbot'
 
@@ -23,6 +24,7 @@ function App() {
         <Route path="/found-talent" element={<FoundTalent />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/add-company" element={<CreateCompanyProfile />} />
+        <Route path="/notifications" element={<Notifications />} />
         <Route path="/profile-expansion" element={<ProfileExpansion />} />
         <Route path="/OnboardingChatbot" element={<OnboardingChatbot />} />
         <Route path="*" element={<NotFound />} />
