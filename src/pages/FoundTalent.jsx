@@ -10,7 +10,7 @@ import {
 import { candidates, roles, stats } from '../data/foundTalentData';
 
 
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 const FoundTalent = () => {
   const navigate = useNavigate();
 
@@ -123,7 +123,7 @@ const FoundTalent = () => {
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: index * 0.1 }}
-                className="glass p-6 rounded-xl space-y-6 glass-hover group cursor-pointer"
+                className="glass p-6 rounded-xl space-y-6 glass-hover group relative"
               >
                 {/* Card Header */}
                 <div className="flex justify-between items-start">
@@ -157,8 +157,8 @@ const FoundTalent = () => {
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {candidate.skills.map((skill) => (
-                      <span key={skill} className="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10">
-                        {skill}
+                      <span key={skill.name} className="px-3 py-1 text-xs rounded-full bg-white/5 border border-white/10">
+                        {skill.name}
                       </span>
                     ))}
                   </div>
@@ -166,9 +166,15 @@ const FoundTalent = () => {
 
                 {/* Actions */}
                 <div className="flex gap-3 pt-2">
-                  <button className="flex-1 py-2.5 text-xs font-bold rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition-all">
+                  <Link 
+                    to={`/profile-expansion?id=${candidate.id}`}
+                    state={{ candidate }}
+                    onClick={(e) => console.log("View Profile Link Clicked for", candidate.name)}
+                    style={{ zIndex: 100, position: 'relative' }}
+                    className="flex-1 py-2.5 text-xs font-bold rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition-all text-center flex items-center justify-center text-white pointer-events-auto cursor-pointer"
+                  >
                     View Profile
-                  </button>
+                  </Link>
               
               
                 </div>
@@ -201,7 +207,7 @@ const FoundTalent = () => {
           </div>
         </footer>
       </div>
-    </main>
+    </motion.main>
   </div>
 </div>
   );

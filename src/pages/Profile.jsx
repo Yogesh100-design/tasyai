@@ -23,73 +23,77 @@ import {
   History
 } from 'lucide-react';
 
+import { useLocation } from 'react-router-dom';
+
 const Profile = () => {
+  const location = useLocation();
+  const profileData = location.state?.profileData;
+  console.log('Profile loaded with data:', profileData);
+  
+  // Default User Data (Fallback)
+  const defaultUser = {
+    name: 'Alex Rivera',
+    role: 'Founder',
+    headline: 'Building decentralized futures | UX Engineer',
+    location: 'San Francisco, CA',
+    about: [
+      'A detailed personal introduction focusing on building decentralized systems and scaling startup teams. Dedicated to bridging the gap between high-level product strategy and technical execution in the Web3 space.',
+      'Currently focused on developing open-source tooling for DAO governance and peer-to-peer collaboration protocols. Looking for passionate designers and frontend architects to join the core team for Project Nexus.'
+    ],
+    skills: [
+      { name: 'React.js', level: 'high' },
+      { name: 'Product Strategy', level: 'high' },
+      { name: 'Solidity', level: 'high' },
+      { name: 'UI/UX Design', level: 'medium' },
+      { name: 'Rust', level: 'medium' },
+      { name: 'AI/ML Implementation', level: 'medium' },
+      { name: 'Project Management', level: 'low' },
+      { name: 'Go Language', level: 'low' }
+    ],
+    ventures: [
+      {
+        id: 1,
+        name: 'Project Nexus',
+        role: 'Founder',
+        description: 'Decentralized ERP Systems',
+        icon: Code2,
+        color: 'from-indigo-500 to-purple-600'
+      },
+      {
+        id: 2,
+        name: 'SafeGuard AI',
+        role: 'Founder',
+        description: 'Governance Security Tools',
+        icon: Shield,
+        color: 'from-orange-400 to-red-500'
+      }
+    ],
+    experienceList: [
+      {
+        period: '2021 — Present',
+        title: 'Principal Architect',
+        company: 'BlockTech',
+        description: 'Led the development of a layer-2 scaling solution used by 50k+ daily users.',
+        active: true
+      },
+      {
+        period: '2018 — 2021',
+        title: 'Lead Designer',
+        company: 'CreativeX',
+        description: 'Designed enterprise design systems for Fortune 500 startups.',
+        active: false
+      }
+    ],
+    links: [
+      { name: 'GitHub', url: 'github.com/arivera-dev', icon: Code, color: 'bg-slate-800' },
+      { name: 'LinkedIn', url: 'linkedin.com/in/alexrivera', icon: User, color: 'bg-[#0077b5]' },
+      { name: 'Personal Website', url: 'alexrivera.io', icon: Globe, color: 'bg-primary/40' },
+      { name: 'Whitepapers', url: 'Medium / Substack', icon: FileText, color: 'bg-slate-800' }
+    ]
+  };
+
+  const user = profileData || defaultUser;
   const [activeTab, setActiveTab] = useState('My Ventures');
-  const [skills] = useState([
-    { name: 'React.js', level: 'high' },
-    { name: 'Product Strategy', level: 'high' },
-    { name: 'Solidity', level: 'high' },
-    { name: 'UI/UX Design', level: 'medium' },
-    { name: 'Rust', level: 'medium' },
-    { name: 'AI/ML Implementation', level: 'medium' },
-    { name: 'Project Management', level: 'low' },
-    { name: 'Go Language', level: 'low' }
-  ]);
-
-  const ventures = [
-    {
-      id: 1,
-      name: 'Project Nexus',
-      role: 'Founder',
-      description: 'Decentralized ERP Systems',
-      icon: Code2,
-      color: 'from-indigo-500 to-purple-600'
-    },
-    {
-      id: 2,
-      name: 'SafeGuard AI',
-      role: 'Founder',
-      description: 'Governance Security Tools',
-      icon: Shield,
-      color: 'from-orange-400 to-red-500'
-    }
-  ];
-
-  const appliedCompanies = [
-    {
-      id: 3,
-      name: 'Nova Protocol',
-      status: 'Applied - Pending',
-      description: 'Cross-chain Liquidity',
-      icon: Rocket,
-      color: 'bg-slate-800',
-      iconColor: 'text-indigo-400'
-    }
-  ];
-
-  const links = [
-    { name: 'GitHub', url: 'github.com/arivera-dev', icon: Code, color: 'bg-slate-800' },
-    { name: 'LinkedIn', url: 'linkedin.com/in/alexrivera', icon: User, color: 'bg-[#0077b5]' },
-    { name: 'Personal Website', url: 'alexrivera.io', icon: Globe, color: 'bg-primary/40' },
-    { name: 'Whitepapers', url: 'Medium / Substack', icon: FileText, color: 'bg-slate-800' }
-  ];
-
-  const experience = [
-    {
-      period: '2021 — Present',
-      title: 'Principal Architect',
-      company: 'BlockTech',
-      description: 'Led the development of a layer-2 scaling solution used by 50k+ daily users.',
-      active: true
-    },
-    {
-      period: '2018 — 2021',
-      title: 'Lead Designer',
-      company: 'CreativeX',
-      description: 'Designed enterprise design systems for Fortune 500 startups.',
-      active: false
-    }
-  ];
 
   const getSkillClasses = (level) => {
     const classes = {
@@ -185,8 +189,14 @@ const Profile = () => {
           <section className="mb-12 flex flex-col items-center text-center">
             <div className="relative mb-6">
               <div className="avatar-glow h-32 w-32 rounded-full border-4 border-[#4245f0] p-1">
-                <div className="h-full w-full rounded-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-3xl font-bold">
-                  AR
+                <div className="h-full w-full rounded-full overflow-hidden border-4 border-[#020617]">
+                  {user.image ? (
+                    <img src={user.image} alt={user.name} className="h-full w-full object-cover" />
+                  ) : (
+                    <div className="h-full w-full bg-gradient-to-br from-indigo-400 to-purple-500 flex items-center justify-center text-3xl font-bold">
+                      {user.name.split(' ').map(n => n[0]).join('')}
+                    </div>
+                  )}
                 </div>
               </div>
               <div className="absolute bottom-0 right-1 h-6 w-6 rounded-full border-4 border-[#020617] bg-green-500"></div>
@@ -194,13 +204,13 @@ const Profile = () => {
             
             <div className="flex flex-col items-center gap-2">
               <div className="flex items-center gap-3">
-                <h2 className="text-4xl font-bold text-white">Alex Rivera</h2>
-                <span className="inline-flex items-center rounded-full bg-[#4245f0]/20 px-3 py-1 text-xs font-semibold text-[#4245f0] ring-1 ring-inset ring-[#4245f0]/30 uppercase tracking-wider">Founder</span>
+                <h2 className="text-4xl font-bold text-white">{user.name}</h2>
+                <span className="inline-flex items-center rounded-full bg-[#4245f0]/20 px-3 py-1 text-xs font-semibold text-[#4245f0] ring-1 ring-inset ring-[#4245f0]/30 uppercase tracking-wider">{user.badge || user.role}</span>
               </div>
-              <p className="text-lg text-slate-400 max-w-xl">Building decentralized futures | UX Engineer</p>
+              <p className="text-lg text-slate-400 max-w-xl">{user.headline || user.role}</p>
               <div className="flex items-center gap-1 text-sm text-slate-500 mt-1">
                 <MapPin className="size-4" />
-                <span>San Francisco, CA</span>
+                <span>{user.location}</span>
               </div>
             </div>
             
@@ -239,8 +249,9 @@ const Profile = () => {
                   About
                 </h3>
                 <div className="space-y-4 text-slate-300 leading-relaxed">
-                  <p>A detailed personal introduction focusing on building decentralized systems and scaling startup teams. Dedicated to bridging the gap between high-level product strategy and technical execution in the Web3 space.</p>
-                  <p>Currently focused on developing open-source tooling for DAO governance and peer-to-peer collaboration protocols. Looking for passionate designers and frontend architects to join the core team for Project Nexus.</p>
+                  {user.about && user.about.map((paragraph, idx) => (
+                    <p key={idx}>{paragraph}</p>
+                  ))}
                 </div>
               </motion.div>
 
@@ -259,7 +270,7 @@ const Profile = () => {
                   <span className="text-xs text-slate-500 italic">Opacity indicates proficiency</span>
                 </div>
                 <div className="flex flex-wrap gap-3">
-                  {skills.map((skill) => (
+                  {user.skills && user.skills.map((skill) => (
                     <span 
                       key={skill.name}
                       className={`rounded-lg px-4 py-2 text-sm font-medium border cursor-default transition-all ${getSkillClasses(skill.level)} ${getSkillOpacity(skill.level)} hover:opacity-100`}
@@ -282,21 +293,23 @@ const Profile = () => {
                   Portfolio & Links
                 </h3>
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  {links.map((link) => {
+                  {user.links && user.links.map((link) => {
                     const IconComponent = link.icon;
                     return (
                       <motion.a 
                         key={link.name}
-                        href="#"
+                        href={link.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
                         whileHover={{ x: 4 }}
                         className="flex items-center gap-4 rounded-xl bg-white/5 p-4 transition-all hover:bg-white/10"
                       >
-                        <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${link.color}`}>
-                          <IconComponent className="size-5 text-white" />
+                        <div className={`flex h-10 w-10 items-center justify-center rounded-lg ${link.color || 'bg-slate-700'}`}>
+                          {IconComponent && <IconComponent className="size-5 text-white" />}
                         </div>
                         <div>
                           <p className="text-sm font-semibold">{link.name}</p>
-                          <p className="text-xs text-slate-500">{link.url}</p>
+                          <p className="text-xs text-slate-500 truncate max-w-[150px]">{link.url.replace(/^https?:\/\//, '')}</p>
                         </div>
                       </motion.a>
                     );
@@ -343,47 +356,32 @@ const Profile = () => {
 
                 <div className="space-y-6">
                   {activeTab === 'My Ventures' ? (
-                    ventures.map((venture) => {
-                      const IconComponent = venture.icon;
-                      return (
-                        <div key={venture.id} className="flex items-center justify-between gap-4 group">
-                          <div className="flex items-center gap-4">
-                            <div className={`h-14 w-14 rounded-xl bg-gradient-to-br ${venture.color} p-3 flex items-center justify-center shrink-0`}>
-                              <IconComponent className="size-7 text-white" />
-                            </div>
-                            <div className="overflow-hidden">
-                              <div className="flex items-center gap-2 mb-0.5">
-                                <h4 className="font-bold truncate">{venture.name}</h4>
-                                <span className="inline-flex items-center rounded-full bg-[#4245f0]/10 px-2 py-0.5 text-[10px] font-bold text-[#4245f0] ring-1 ring-inset ring-[#4245f0]/30 uppercase tracking-tighter">{venture.role}</span>
+                    user.ventures && user.ventures.length > 0 ? (
+                      user.ventures.map((venture) => {
+                        const IconComponent = venture.icon;
+                        return (
+                          <div key={venture.id} className="flex items-center justify-between gap-4 group">
+                            <div className="flex items-center gap-4">
+                              <div className={`h-14 w-14 rounded-xl bg-gradient-to-br ${venture.color || 'from-slate-700 to-slate-600'} p-3 flex items-center justify-center shrink-0`}>
+                                {IconComponent ? <IconComponent className="size-7 text-white" /> : <Code2 className="size-7 text-white" />}
                               </div>
-                              <p className="text-xs text-slate-400">{venture.description}</p>
+                              <div className="overflow-hidden">
+                                <div className="flex items-center gap-2 mb-0.5">
+                                  <h4 className="font-bold truncate">{venture.name}</h4>
+                                  <span className="inline-flex items-center rounded-full bg-[#4245f0]/10 px-2 py-0.5 text-[10px] font-bold text-[#4245f0] ring-1 ring-inset ring-[#4245f0]/30 uppercase tracking-tighter">{venture.role}</span>
+                                </div>
+                                <p className="text-xs text-slate-400">{venture.description}</p>
+                              </div>
                             </div>
+                            <button className="rounded-lg bg-white/5 px-4 py-2 text-xs font-bold transition-all hover:bg-white/10 hover:text-[#4245f0]">Manage</button>
                           </div>
-                          <button className="rounded-lg bg-white/5 px-4 py-2 text-xs font-bold transition-all hover:bg-white/10 hover:text-[#4245f0]">Manage</button>
-                        </div>
-                      );
-                    })
+                        );
+                      })
+                    ) : ( 
+                      <div className="text-slate-500 text-center py-4">No public ventures listed.</div>
+                    )
                   ) : (
-                    appliedCompanies.map((company) => {
-                      const IconComponent = company.icon;
-                      return (
-                        <div key={company.id} className="flex items-center justify-between gap-4 group">
-                          <div className="flex items-center gap-4">
-                            <div className={`h-14 w-14 rounded-xl ${company.color} p-3 flex items-center justify-center shrink-0`}>
-                              <IconComponent className={`size-7 ${company.iconColor}`} />
-                            </div>
-                            <div className="overflow-hidden">
-                              <div className="flex items-center gap-2 mb-0.5">
-                                <h4 className="font-bold truncate">{company.name}</h4>
-                                <span className="inline-flex items-center rounded-full bg-amber-400/10 px-2 py-0.5 text-[10px] font-bold text-amber-400 ring-1 ring-inset ring-amber-400/30 uppercase tracking-tighter">{company.status}</span>
-                              </div>
-                              <p className="text-xs text-slate-400">{company.description}</p>
-                            </div>
-                          </div>
-                          <button className="rounded-lg bg-white/5 px-4 py-2 text-xs font-bold transition-all hover:bg-white/10">View Info</button>
-                        </div>
-                      );
-                    })
+                    <div className="text-slate-500 text-center py-4">No pending applications.</div>
                   )}
 
                   {activeTab === 'My Ventures' && (
@@ -477,7 +475,7 @@ const Profile = () => {
                   Experience Highlights
                 </h3>
                 <div className="space-y-6">
-                  {experience.map((exp, index) => (
+                  {user.experienceList && user.experienceList.map((exp, index) => (
                     <div key={index} className={`relative pl-6 ${exp.active ? 'before:absolute before:left-0 before:top-1.5 before:h-2 before:w-2 before:rounded-full before:bg-[#4245f0] before:ring-4 before:ring-[#4245f0]/20' : 'before:absolute before:left-0 before:top-1.5 before:h-2 before:w-2 before:rounded-full before:bg-slate-700'}`}>
                       <p className="text-xs text-slate-500">{exp.period}</p>
                       <h4 className="font-bold">{exp.title} • {exp.company}</h4>

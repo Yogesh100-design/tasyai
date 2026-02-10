@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { 
   Rocket,
@@ -7,13 +7,15 @@ import {
   User,
   Book,
   Settings,
-  Menu
+  Menu,
+  LogOut
 } from 'lucide-react';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const Sidebar = ({ isOpen, toggleSidebar }) => {
   const location = useLocation();
   const isActive = (path) => location.pathname === path;
+  const [showProfileMenu, setShowProfileMenu] = useState(false);
 
   const sidebarVariants = {
     open: {
@@ -60,7 +62,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
         }}
         // Using layout prop for automatic smoothing of class changes especially useful for desktop width
         layout
-        className={`fixed left-0 top-0 h-full z-[60] flex flex-col sidebar-glass border-r border-white/5 ${
+        className={`fixed left-0 top-0 h-full z-40 flex flex-col sidebar-glass border-r border-white/5 ${
           isOpen ? 'translate-x-0' : '-translate-x-full md:translate-x-0'
         }`}
         style={{ width: isOpen ? '18rem' : '5rem' }} // Fallback/Base
@@ -219,29 +221,66 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
             </Link>
             
             {/* Profile */}
-            <Link to="/profile" className={`mt-4 flex items-center gap-3 rounded-xl transition-colors hover:bg-white/5 ${
-              isOpen ? 'px-2 py-2' : 'p-2 justify-center'
-            }`}>
-              <div className="size-10 rounded-full border border-white/10 overflow-hidden bg-gradient-to-br from-primary/30 to-purple-500/30 shrink-0">
-                <div className="w-full h-full flex items-center justify-center text-white font-bold text-sm">
-                  AR
+            {/* Profile Menu Trigger */}
+            <div className="relative">
+              <button 
+                onClick={() => setShowProfileMenu(!showProfileMenu)}
+                className={`mt-4 w-full flex items-center gap-3 rounded-xl transition-colors hover:bg-white/5 ${
+                  isOpen ? 'px-2 py-2 text-left' : 'p-2 justify-center'
+                }`}
+              >
+                <div className="size-10 rounded-full border border-white/10 overflow-hidden bg-gradient-to-br from-indigo-500/30 to-purple-500/30 shrink-0">
+                  <div className="w-full h-full flex items-center justify-center text-white font-bold text-sm">
+                    AR
+                  </div>
                 </div>
-              </div>
+                <AnimatePresence>
+                  {isOpen && (
+                    <motion.div 
+                      variants={textVariants}
+                      initial="hidden"
+                      animate="visible"
+                      exit="hidden"
+                      className="overflow-hidden"
+                    >
+                      <p className="text-sm font-semibold text-white truncate">Alex Rivera</p>
+                      <p className="text-xs text-slate-500 truncate">Product Designer</p>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </button>
+
+              {/* Popup Menu */}
               <AnimatePresence>
-                {isOpen && (
-                  <motion.div 
-                    variants={textVariants}
-                    initial="hidden"
-                    animate="visible"
-                    exit="hidden"
-                    className="overflow-hidden"
+                {showProfileMenu && (
+                  <motion.div
+                    initial={{ opacity: 0, y: 10, scale: 0.95 }}
+                    animate={{ opacity: 1, y: 0, scale: 1 }}
+                    exit={{ opacity: 0, y: 10, scale: 0.95 }}
+                    className={`absolute bottom-full mb-2 bg-[#0f172a] border border-white/10 rounded-xl shadow-xl overflow-hidden z-50 ${
+                      isOpen ? 'left-0 w-full' : 'left-full ml-2 w-48'
+                    }`}
                   >
-                    <p className="text-sm font-semibold text-white truncate">Alex Rivera</p>
-                    <p className="text-xs text-slate-500 truncate">Product Designer</p>
+                    <div className="p-1">
+                      <Link 
+                        to="/profile"
+                        onClick={() => setShowProfileMenu(false)}
+                        className="flex items-center gap-2 w-full px-3 py-2 text-sm text-slate-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+                      >
+                        <User className="size-4" />
+                        <span>View Profile</span>
+                      </Link>
+                      <button 
+                        className="flex items-center gap-2 w-full px-3 py-2 text-sm text-red-400 hover:text-red-300 hover:bg-red-500/10 rounded-lg transition-colors text-left"
+                      >
+                        <LogOut className="size-4" />
+                        <span>Log Out</span>
+                      </button>
+                    </div>
                   </motion.div>
                 )}
               </AnimatePresence>
-            </Link>
+            </div>
           </div>
         </div>
       </motion.aside>

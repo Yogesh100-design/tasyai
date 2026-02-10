@@ -20,9 +20,11 @@ import {
 } from 'lucide-react';
 
 import { useNavigate } from 'react-router-dom';
+import Sidebar from '../components/layout/Sidebar';
 
 const CreateCompanyProfile = () => {
   const navigate = useNavigate();
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [formData, setFormData] = useState({
     companyName: 'Nexa Dynamics',
     tagline: 'The future of decentralized compute',
@@ -70,70 +72,44 @@ const CreateCompanyProfile = () => {
   };
 
   return (
-    <div className="bg-[#020617] text-slate-100 font-sans min-h-screen custom-scrollbar">
-      {/* Global Styles */}
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
-        
-        body {
-          font-family: 'Manrope', sans-serif;
-          background-color: #020617;
-        }
-        
-        .glass {
-          background: rgba(255, 255, 255, 0.05);
-          backdrop-filter: blur(12px);
-          -webkit-backdrop-filter: blur(12px);
-          border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar {
-          width: 6px;
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-track {
-          background: transparent;
-        }
-        
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-          background: rgba(255, 255, 255, 0.1);
-          border-radius: 10px;
-        }
-      `}</style>
+    <div className="bg-[#020617] text-slate-100 font-sans min-h-screen flex overflow-hidden">
+      <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
 
-      {/* Navigation */}
-      <nav className="sticky top-0 z-50 glass border-x-0 border-t-0 border-b border-white/10 px-8 py-4 mb-12">
-        <div className="max-w-7xl mx-auto flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <div className="w-10 h-10 bg-[#4245f0] rounded-lg flex items-center justify-center">
-              <Rocket className="text-white size-5" />
-            </div>
-            <h1 className="text-white text-xl font-bold tracking-tight">Tasyai Hub</h1>
+      <motion.main 
+        layout
+        className={`flex-1 overflow-y-auto h-full bg-[#020617] ${isSidebarOpen ? 'md:ml-72' : 'md:ml-20'}`}
+      >
+        <div className="max-w-7xl mx-auto px-8 py-8 pb-32">
+          {/* Header Actions */}
+          <div className="flex items-center justify-between mb-8">
+             <div className="flex items-center gap-3">
+                <div className="w-10 h-10 bg-[#4245f0] rounded-lg flex items-center justify-center">
+                  <Rocket className="text-white size-5" />
+                </div>
+                <h1 className="text-white text-2xl font-bold tracking-tight">Launch Venture</h1>
+             </div>
+             <div className="flex items-center gap-4">
+                <button onClick={() => navigate('/dashboard')} className="text-slate-400 hover:text-white transition-colors font-medium">Cancel</button>
+                <motion.button 
+                  onClick={() => navigate('/dashboard')}
+                  whileHover={{ scale: 1.02 }}
+                  whileTap={{ scale: 0.98 }}
+                  className="px-6 py-2.5 bg-[#4245f0] hover:bg-[#4245f0]/90 text-white font-bold rounded-lg transition-all shadow-lg shadow-[#4245f0]/20 flex items-center gap-2"
+                >
+                  Publish Profile
+                  <Rocket className="size-4" />
+                </motion.button>
+             </div>
           </div>
-          <div className="flex items-center gap-6">
-            <button onClick={() => navigate('/dashboard')} className="text-slate-400 hover:text-white transition-colors font-medium">Cancel</button>
-            <motion.button 
-              onClick={() => navigate('/dashboard')}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="px-6 py-2.5 bg-[#4245f0] hover:bg-[#4245f0]/90 text-white font-bold rounded-lg transition-all shadow-lg shadow-[#4245f0]/20 flex items-center gap-2"
-            >
-              Publish Profile
-              <Rocket className="size-4" />
-            </motion.button>
-          </div>
-        </div>
-      </nav>
 
-      <main className="max-w-7xl mx-auto px-8 pb-32">
-        <div className="flex flex-col lg:flex-row gap-12 relative">
-          {/* Left Column - Forms */}
-          <div className="flex-1 space-y-12">
-            {/* Header */}
-            <header className="max-w-3xl">
-              <h2 className="text-4xl font-extrabold tracking-tight text-white mb-4">Launch Your Venture</h2>
-              <p className="text-slate-400 text-lg leading-relaxed">Craft a detailed profile to showcase your vision, team, and current opportunities to the world's best collaborators.</p>
-            </header>
+          <div className="flex flex-col lg:flex-row gap-12 relative">
+            {/* Left Column - Forms */}
+            <div className="flex-1 space-y-12">
+              {/* Header */}
+              <header className="max-w-3xl">
+                <h2 className="text-4xl font-extrabold tracking-tight text-white mb-4">Launch Your Venture</h2>
+                <p className="text-slate-400 text-lg leading-relaxed">Craft a detailed profile to showcase your vision, team, and current opportunities to the world's best collaborators.</p>
+              </header>
 
             {/* Company Identity */}
             <motion.section 
@@ -476,7 +452,8 @@ const CreateCompanyProfile = () => {
             </div>
           </aside>
         </div>
-      </main>
+        </div>
+      </motion.main>
     </div>
   );
 };

@@ -8,6 +8,7 @@ import Dashboard from './pages/Dashboard'
 import FoundTalent from './pages/FoundTalent'
 import Profile from './pages/Profile'
 import CreateCompanyProfile from './pages/AddCompany'
+import ProfileExpansion from './pages/ProfileExpansion'
 import OnboardingChatbot from './pages/OnboardingChatbot'
 
 function App() {
@@ -20,10 +21,11 @@ function App() {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/dashboard" element={<Dashboard />} />
         <Route path="/found-talent" element={<FoundTalent />} />
-        <Route path="*" element={<NotFound />} />
         <Route path="/profile" element={<Profile />} />
         <Route path="/add-company" element={<CreateCompanyProfile />} />
+        <Route path="/profile-expansion" element={<ProfileExpansion />} />
         <Route path="/OnboardingChatbot" element={<OnboardingChatbot />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
     </BrowserRouter>
   )
