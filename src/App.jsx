@@ -11,6 +11,7 @@ import CreateCompanyProfile from './pages/AddCompany'
 import Notifications from './pages/Notifications'
 import MyStartups from './pages/MyStartups'
 import ProfileExpansion from './pages/ProfileExpansion'
+import CompanyDetail from './pages/CompanyDetail'
 import OnboardingChatbot from './pages/OnboardingChatbot'
 
 function App() {
@@ -27,6 +28,7 @@ function App() {
         <Route path="/add-company" element={<CreateCompanyProfile />} />
         <Route path="/notifications" element={<Notifications />} />
         <Route path="/my-startups" element={<MyStartups />} />
+        <Route path="/company-detail" element={<CompanyDetail />} />
         <Route path="/profile-expansion" element={<ProfileExpansion />} />
         <Route path="/OnboardingChatbot" element={<OnboardingChatbot />} />
         <Route path="*" element={<NotFound />} />

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import Sidebar from '../components/layout/Sidebar';
 import { 
@@ -129,7 +129,6 @@ const Dashboard = () => {
             {/* Company Cards Grid */}
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
               {companies.map((company, index) => {
-                const IconComponent = company.icon;
                 const isSaved = savedCompanies.includes(company.name);
                 
                 return (
@@ -143,8 +142,12 @@ const Dashboard = () => {
                   >
                     {/* Card Header */}
                     <div className="flex justify-between items-start mb-6">
-                      <div className={`size-14 rounded-xl flex items-center justify-center border ${getColorClasses(company.color)}`}>
-                        <IconComponent className="size-7" />
+                      <div className="size-14 rounded-xl overflow-hidden border border-white/10">
+                        <img 
+                          src={company.image} 
+                          alt={company.name} 
+                          className="w-full h-full object-cover"
+                        />
                       </div>
                       <button 
                         onClick={() => toggleSave(company.name)}
@@ -183,13 +186,13 @@ const Dashboard = () => {
                       >
                         Show Interest
                       </motion.button>
-                      <motion.button 
-                        whileHover={{ scale: 1.02, backgroundColor: 'rgba(255,255,255,0.1)' }}
-                        whileTap={{ scale: 0.98 }}
-                        className="flex-1 py-3 px-4 glass-effect text-white text-sm font-bold rounded-xl transition-all"
+                      <Link 
+                        to={`/company-detail?id=${company.id}`}
+                        state={{ company }}
+                        className="flex-1 py-3 px-4 glass-effect text-white text-sm font-bold rounded-xl transition-all flex items-center justify-center hover:bg-white/10"
                       >
                         View Details
-                      </motion.button>
+                      </Link>
                     </div>
                   </motion.div>
                 );

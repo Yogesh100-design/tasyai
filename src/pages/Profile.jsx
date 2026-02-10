@@ -20,7 +20,9 @@ import {
   Clock,
   Users,
   Eye,
-  History
+  History,
+  Mail,
+  Send
 } from 'lucide-react';
 
 import { useLocation } from 'react-router-dom';
@@ -36,6 +38,7 @@ const Profile = () => {
     role: 'Founder',
     headline: 'Building decentralized futures | UX Engineer',
     location: 'San Francisco, CA',
+    email: 'alex.rivera@tasyai.dev',
     about: [
       'A detailed personal introduction focusing on building decentralized systems and scaling startup teams. Dedicated to bridging the gap between high-level product strategy and technical execution in the Web3 space.',
       'Currently focused on developing open-source tooling for DAO governance and peer-to-peer collaboration protocols. Looking for passionate designers and frontend architects to join the core team for Project Nexus.'
@@ -94,6 +97,17 @@ const Profile = () => {
 
   const user = profileData || defaultUser;
   const [activeTab, setActiveTab] = useState('My Ventures');
+  const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
+
+  const handleContactSubmit = (e) => {
+    e.preventDefault();
+    const subject = `Portfolio Contact: ${contactForm.name}`;
+    const body = `Name: ${contactForm.name}\nEmail: ${contactForm.email}\n\nMessage:\n${contactForm.message}`;
+    const mailtoLink = `mailto:${user.email}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
+    window.location.href = mailtoLink;
+    setContactForm({ name: '', email: '', message: '' });
+  };
 
   const getSkillClasses = (level) => {
     const classes = {
@@ -316,6 +330,67 @@ const Profile = () => {
                   })}
                 </div>
               </motion.div>
+
+              {/* Contact Form */}
+              <motion.div 
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.25 }}
+                className="glass-card rounded-xl p-8 border border-[#4245f0]/30 relative overflow-hidden"
+              >
+                <div className="absolute top-0 right-0 p-32 bg-[#4245f0]/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+                
+                <h3 className="mb-6 flex items-center gap-2 text-xl font-bold relative z-10">
+                  <Mail className="size-5 text-[#4245f0]" />
+                  Get in Touch
+                </h3>
+                
+                <form onSubmit={handleContactSubmit} className="space-y-4 relative z-10">
+                  <div>
+                    <label className="block text-xs font-bold text-slate-400 uppercase mb-1">Your Name</label>
+                    <input 
+                      required
+                      type="text" 
+                      value={contactForm.name}
+                      onChange={(e) => setContactForm({...contactForm, name: e.target.value})}
+                      className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white focus:ring-2 focus:ring-[#4245f0] outline-none transition-all placeholder:text-slate-600"
+                      placeholder="e.g. Jordan Smith"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-400 uppercase mb-1">Your Email</label>
+                    <input 
+                      required
+                      type="email" 
+                      value={contactForm.email}
+                      onChange={(e) => setContactForm({...contactForm, email: e.target.value})}
+                      className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white focus:ring-2 focus:ring-[#4245f0] outline-none transition-all placeholder:text-slate-600"
+                      placeholder="jordan@example.com"
+                    />
+                  </div>
+                  <div>
+                    <label className="block text-xs font-bold text-slate-400 uppercase mb-1">Message</label>
+                    <textarea 
+                      required
+                      rows="4"
+                      value={contactForm.message}
+                      onChange={(e) => setContactForm({...contactForm, message: e.target.value})}
+                      className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white focus:ring-2 focus:ring-[#4245f0] outline-none transition-all resize-none placeholder:text-slate-600"
+                      placeholder="Hi Alex, I'd like to discuss a project..."
+                    ></textarea>
+                  </div>
+                  
+                  <motion.button 
+                    whileHover={{ scale: 1.02 }}
+                    whileTap={{ scale: 0.98 }}
+                    type="submit"
+                    className="w-full py-3 rounded-xl bg-[#4245f0] hover:bg-[#4245f0]/90 text-white font-bold flex items-center justify-center gap-2 shadow-lg shadow-[#4245f0]/20 transition-all"
+                  >
+                    <Send className="size-4" />
+                    Send Message
+                  </motion.button>
+                </form>
+              </motion.div>
             </div>
 
             {/* Right Column */}
@@ -438,6 +513,8 @@ const Profile = () => {
                   </div>
                 </div>
               </motion.div>
+
+
 
               {/* Stats */}
               <div className="grid grid-cols-2 gap-4">
