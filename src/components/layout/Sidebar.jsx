@@ -250,12 +250,16 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
           {/* Bottom Section */}
           <div className={`mt-auto pt-6 border-t border-white/10 w-full ${!isOpen && 'flex flex-col items-center'}`}>
             <Link 
-              to="/profile" 
+              to="/settings" 
               className={`flex items-center gap-3 rounded-xl transition-all group ${
                 isOpen ? 'px-4 py-3' : 'p-3 justify-center'
-              } text-slate-400 hover:bg-white/5 hover:text-white`}
+              } ${
+                isActive('/settings')
+                  ? 'bg-[#6467f2]/20 text-[#6467f2] border border-[#6467f2]/20'
+                  : 'text-slate-400 hover:bg-white/5 hover:text-white'
+              }`}
             >
-              <Settings className="size-[22px] shrink-0" />
+              <Settings className={`size-[22px] shrink-0 ${isActive('/settings') ? 'fill-current' : ''}`} />
               <AnimatePresence>
                 {isOpen && (
                   <motion.span 
