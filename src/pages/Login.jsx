@@ -31,7 +31,7 @@ const Login = () => {
 
   return (
     <div className="min-h-screen bg-[#020617] flex items-center justify-center overflow-hidden relative font-sans">
-      {/* Global Styles */}
+
       <style jsx global>{`
         @import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
         
@@ -60,7 +60,6 @@ const Login = () => {
         }
       `}</style>
 
-      {/* Background Decoration */}
       <div className="fixed inset-0 z-0">
         <motion.div 
           animate={{ 
@@ -80,11 +79,10 @@ const Login = () => {
         />
       </div>
 
-      {/* Noise Overlay */}
+
       <div className="fixed inset-0 pointer-events-none opacity-[0.03] contrast-150 brightness-150 bg-[url('https://grainy-gradients.vercel.app/noise.svg')] z-0" />
 
-      {/* Main Content */}
-      <main className="relative z-10 w-full max-w-[480px] p-6">
+   <main className="relative z-10 w-full max-w-[480px] p-6">
         <motion.div 
           initial={{ opacity: 0, y: 30 }}
           animate={{ opacity: 1, y: 0 }}
