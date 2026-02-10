@@ -12,6 +12,7 @@ import Notifications from './pages/Notifications'
 import MyStartups from './pages/MyStartups'
 import ProfileExpansion from './pages/ProfileExpansion'
 import CompanyDetail from './pages/CompanyDetail'
+import Settings from './pages/Settings'
 import OnboardingChatbot from './pages/OnboardingChatbot'
 
 function App() {
@@ -30,6 +31,7 @@ function App() {
         <Route path="/my-startups" element={<MyStartups />} />
         <Route path="/company-detail" element={<CompanyDetail />} />
         <Route path="/profile-expansion" element={<ProfileExpansion />} />
+        <Route path="/settings" element={<Settings />} />
         <Route path="/OnboardingChatbot" element={<OnboardingChatbot />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
