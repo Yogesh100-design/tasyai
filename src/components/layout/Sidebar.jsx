@@ -170,12 +170,16 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               </AnimatePresence>
             </Link>
             <Link 
-              to="/dashboard" 
+              to="/my-startups" 
               className={`flex items-center gap-3 rounded-xl transition-all group ${
                 isOpen ? 'px-4 py-3' : 'p-3 justify-center'
-              } text-slate-400 hover:bg-white/5 hover:text-white`}
+              } ${
+                isActive('/my-startups')
+                  ? 'bg-[#6467f2]/20 text-[#6467f2] border border-[#6467f2]/20'
+                  : 'text-slate-400 hover:bg-white/5 hover:text-white'
+              }`}
             >
-              <Book className="size-[22px] shrink-0" />
+              <Rocket className={`size-[22px] shrink-0 ${isActive('/my-startups') ? 'fill-current' : ''}`} />
               <AnimatePresence>
                 {isOpen && (
                   <motion.span 
@@ -185,7 +189,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
                     exit="hidden"
                     className="text-sm font-medium whitespace-nowrap overflow-hidden"
                   >
-                   my startups
+                    My Startups
                   </motion.span>
                 )}
               </AnimatePresence>
