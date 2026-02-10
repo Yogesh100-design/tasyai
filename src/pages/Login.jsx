@@ -96,7 +96,7 @@ const Login = () => {
             <div className="size-12 bg-[#6467f2]/20 rounded-full flex items-center justify-center border border-[#6467f2]/30 text-[#6467f2]">
               <Hexagon className="size-8 fill-current" />
             </div>
-            <h2 className="text-white text-xl font-extrabold tracking-tight">FounderTalent</h2>
+            <h2 className="text-white text-xl font-extrabold tracking-tight">Tasyai</h2>
           </div>
 
           <div className="text-center mb-10">
@@ -204,6 +204,33 @@ const Login = () => {
             </p>
           </div>
         </motion.div>
+
+        {/* Temporary Testing Navigation */}
+        <div className="mt-8 text-center space-y-3">
+          <p className="text-xs text-yellow-500/60 font-medium">
+            ⚠️ Testing Links (To be removed after backend integration)
+          </p>
+          <div className="flex flex-wrap justify-center gap-3">
+            <Link 
+              to="/dashboard" 
+              className="px-3 py-2 bg-slate-800/50 hover:bg-slate-700/50 text-slate-300 text-xs rounded-lg border border-slate-700/50 transition-colors"
+            >
+              1. Dashboard
+            </Link>
+            <Link 
+              to="/found-talent" 
+              className="px-3 py-2 bg-slate-800/50 hover:bg-slate-700/50 text-slate-300 text-xs rounded-lg border border-slate-700/50 transition-colors"
+            >
+              2. Found Talent
+            </Link>
+            <Link 
+              to="/OnboardingChatbot" 
+              className="px-3 py-2 bg-slate-800/50 hover:bg-slate-700/50 text-slate-300 text-xs rounded-lg border border-slate-700/50 transition-colors"
+            >
+              3. Chatbot
+            </Link>
+          </div>
+        </div>
 
         {/* Bottom Links */}
         <div className="mt-8 flex justify-center gap-6 text-slate-500 text-xs">

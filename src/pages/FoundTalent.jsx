@@ -68,7 +68,7 @@ const FoundTalent = () => {
                 <Rocket className="text-white size-5" />
               </div>
               <div>
-                <h1 className="text-xl font-extrabold tracking-tight">Nebula AI</h1>
+                <h1 className="text-xl font-extrabold tracking-tight">Tasyai</h1>
                 <div className="flex items-center gap-1.5">
                   <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
                   <span className="text-[10px] uppercase tracking-widest font-bold text-emerald-500">Active</span>
@@ -269,7 +269,7 @@ const FoundTalent = () => {
 
         {/* Footer */}
         <footer className="pt-12 pb-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4 text-slate-500 text-sm">
-          <p>© 2024 Nebula AI Talent Dashboard. All rights reserved.</p>
+          <p>© 2024 Tasyai Talent Dashboard. All rights reserved.</p>
           <div className="flex items-center gap-6">
             <a href="#" className="hover:text-[#4245f0] transition-colors">Privacy Policy</a>
             <a href="#" className="hover:text-[#4245f0] transition-colors">Help Center</a>

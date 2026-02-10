@@ -45,7 +45,7 @@ const Sidebar = ({ isOpen, toggleSidebar }) => {
               <Rocket className="text-white size-5 font-bold" />
             </div>
             <div>
-              <h1 className="text-xl font-bold tracking-tight text-white">StartupCollab</h1>
+              <h1 className="text-xl font-bold tracking-tight text-white">Tasyai</h1>
               <p className="text-xs text-slate-400">Discovery Engine</p>
             </div>
           </div>

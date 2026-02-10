@@ -83,7 +83,7 @@ const NotFound = () => {
             <div className="size-8 bg-[#4245f0] rounded-lg flex items-center justify-center group-hover:rotate-12 transition-transform">
               <Rocket className="text-white size-5" />
             </div>
-            <h2 className="text-white text-xl font-bold leading-tight tracking-tight group-hover:text-[#4245f0] transition-colors">StartupCollab</h2>
+            <h2 className="text-white text-xl font-bold leading-tight tracking-tight group-hover:text-[#4245f0] transition-colors">Tasyai</h2>
           </div>
           
           <div className="flex items-center gap-8">
@@ -196,7 +196,7 @@ const NotFound = () => {
 
         {/* Footer Decoration */}
         <footer className="py-8 text-center text-slate-600 text-xs tracking-widest uppercase">
-          © 2024 StartupCollab Ecosystem. All rights reserved.
+          © 2024 Tasyai Ecosystem. All rights reserved.
         </footer>
       </div>
     </div>

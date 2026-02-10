@@ -108,7 +108,7 @@ const ResetPassword = () => {
             <div className="size-12 bg-[#4245f0] rounded-xl flex items-center justify-center shadow-lg shadow-[#4245f0]/30 mb-4">
               {/* <Hub className="text-white size-7" /> */}
             </div>
-            <h2 className="text-white text-xl font-extrabold tracking-tight">StartupPlatform</h2>
+            <h2 className="text-white text-xl font-extrabold tracking-tight">Tasyai Platform</h2>
           </div>
 
           {/* Success State */}
@@ -229,7 +229,7 @@ const ResetPassword = () => {
       {/* Simple Bottom Bar */}
       <footer className="p-6 relative z-10 text-center">
         <p className="text-slate-600 text-xs uppercase tracking-widest font-semibold">
-          © 2024 StartupPlatform. All rights reserved.
+          © 2024 Tasyai. All rights reserved.
         </p>
       </footer>
     </div>

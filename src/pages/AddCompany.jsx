@@ -108,7 +108,7 @@ const CreateCompanyProfile = () => {
             <div className="w-10 h-10 bg-[#4245f0] rounded-lg flex items-center justify-center">
               <Rocket className="text-white size-5" />
             </div>
-            <h1 className="text-white text-xl font-bold tracking-tight">Startup Hub</h1>
+            <h1 className="text-white text-xl font-bold tracking-tight">Tasyai Hub</h1>
           </div>
           <div className="flex items-center gap-6">
             <button onClick={() => navigate('/dashboard')} className="text-slate-400 hover:text-white transition-colors font-medium">Cancel</button>

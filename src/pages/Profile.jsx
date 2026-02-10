@@ -142,7 +142,7 @@ const Profile = () => {
                 <div className="text-[#4245f0]">
                   <Code2 className="size-8 text-[#4245f0]" />
                 </div>
-                <h1 className="text-xl font-bold tracking-tight">StartupCollab</h1>
+                <h1 className="text-xl font-bold tracking-tight">Tasyai</h1>
               </div>
               
               {/* Navigation */}
@@ -495,7 +495,7 @@ const Profile = () => {
           <div className="mx-auto flex max-w-7xl flex-col items-center justify-between gap-8 md:flex-row">
             <div className="flex items-center gap-3 opacity-60">
               <Code2 className="size-6 text-white" />
-              <span className="text-sm font-bold tracking-tight text-white">StartupCollab © 2024</span>
+              <span className="text-sm font-bold tracking-tight text-white">Tasyai © 2024</span>
             </div>
             <div className="flex gap-8 text-sm text-slate-500">
               {['Privacy Policy', 'Terms of Service', 'Contact Support'].map((item) => (

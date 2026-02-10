@@ -36,7 +36,7 @@ const Navbar = () => {
           <div className="size-8 bg-indigo-600 rounded flex items-center justify-center group-hover:rotate-12 transition-transform">
             <Code2 className="text-white size-5" />
           </div>
-          <span className="text-xl font-bold tracking-tight text-white group-hover:text-indigo-400 transition-colors">BUILDER</span>
+          <span className="text-xl font-bold tracking-tight text-white group-hover:text-indigo-400 transition-colors">Tasyai</span>
         </div>
         
         <nav className="hidden md:flex items-center gap-8">
@@ -335,7 +335,7 @@ const Footer = () => {
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-6">
         <div className="flex items-center gap-2">
           <Code2 className="text-indigo-500 size-6" />
-          <span className="font-bold tracking-tight text-white">BUILDER v1.0</span>
+          <span className="font-bold tracking-tight text-white">Tasyai v1.0</span>
         </div>
         <p className="text-white/20 text-sm">
           © 2024 Experimental Startup Collaboration Platform. Made for the builders.

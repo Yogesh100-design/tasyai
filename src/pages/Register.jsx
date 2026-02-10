@@ -87,7 +87,7 @@ const Register = () => {
           <div className="size-10 bg-[#5a5cf2] rounded-xl flex items-center justify-center shadow-lg shadow-[#5a5cf2]/20 group-hover:shadow-[#5a5cf2]/40 transition-all">
             <Hexagon className="text-white size-6 fill-white" />
           </div>
-          <span className="text-white text-xl font-bold tracking-tight">StartupConnect</span>
+          <span className="text-white text-xl font-bold tracking-tight">Tasyai</span>
         </div>
         
         <div className="hidden md:flex items-center gap-8">
@@ -268,7 +268,7 @@ const Register = () => {
       {/* Footer */}
       <footer className="relative z-10 w-full py-8 text-center">
         <p className="text-slate-600 text-xs font-medium">
-          © 2024 StartupConnect Platform. All rights reserved.
+          © 2024 Tasyai Platform. All rights reserved.
         </p>
       </footer>
     </div>
