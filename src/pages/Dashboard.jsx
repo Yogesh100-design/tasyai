@@ -46,19 +46,19 @@ const Dashboard = () => {
 
   return (
     <div className="bg-[#020617] text-white font-sans overflow-hidden h-screen">
-      {/* Global Styles */}
+
 
 
       <div className="flex h-screen w-full relative">
         <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
 
-        {/* Main Content */}
+
         <motion.main 
           layout
           className={`flex-1 overflow-y-auto h-full bg-[#020617] ${isSidebarOpen ? 'md:ml-72' : 'md:ml-20'}`}
         >
           <div className="max-w-7xl mx-auto p-10 pb-20">
-            {/* Header */}
+
             <header className="mb-10 flex items-start justify-between gap-6">
               <div className="flex items-center gap-4">
                 <div>
