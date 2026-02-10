@@ -2,21 +2,18 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import Sidebar from '../components/layout/Sidebar';
 import { 
-  Rocket,
-  ChevronDown,
-  Plus,
   Filter,
   ArrowUpDown,
   Bookmark,
-  UserPlus,
-  Menu
+  UserPlus
 } from 'lucide-react';
 import { candidates, roles, stats } from '../data/foundTalentData';
 
-import { useNavigate } from 'react-router-dom';
 
+import { useNavigate } from 'react-router-dom';
 const FoundTalent = () => {
   const navigate = useNavigate();
+
   const [activeRole, setActiveRole] = useState('All Roles');
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   
@@ -50,96 +47,31 @@ const FoundTalent = () => {
       <div className="flex h-screen w-full relative">
         <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
 
-        <main className={`flex-1 overflow-y-auto h-full bg-[#020617] transition-all duration-300 ${isSidebarOpen ? 'ml-72' : 'ml-0'}`}>
-          {/* Header */}
-          <header className="sticky top-0 z-50 w-full glass border-b border-white/10 px-6 py-4">
-            <div className="max-w-[1600px] mx-auto flex items-center justify-between">
-              <div className="flex items-center gap-6">
-                <button 
-                  onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                  className="p-2 rounded-lg hover:bg-white/10 text-white transition-colors"
-                >
-                  <Menu className="size-6" />
-                </button>
-                
-                {/* Branding */}
-                <div className="flex items-center gap-3">
-              <div className="w-10 h-10 gradient-primary rounded-lg flex items-center justify-center shadow-lg shadow-[#4245f0]/20">
-                <Rocket className="text-white size-5" />
-              </div>
-              <div>
-                <h1 className="text-xl font-extrabold tracking-tight">Tasyai</h1>
-                <div className="flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                  <span className="text-[10px] uppercase tracking-widest font-bold text-emerald-500">Active</span>
-                </div>
-              </div>
-            </div>
-            
-            {/* Company Switcher */}
-            <div className="relative group">
-              <button className="flex items-center gap-2 px-4 py-2 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition-all">
-                <span className="text-sm font-medium">Switch Company</span>
-                <ChevronDown className="size-4 text-slate-400" />
-              </button>
-            </div>
-          </div>
+        <motion.main 
+          layout
+          className={`flex-1 overflow-y-auto h-full bg-[#020617] ${isSidebarOpen ? 'md:ml-72' : 'md:ml-20'}`}
+        >
 
-          {/* Action Buttons */}
-          <div className="flex items-center gap-4">
-            <button className="px-5 py-2.5 text-sm font-semibold rounded-lg border border-white/10 hover:bg-white/5 transition-all">
-              Edit Company
-            </button>
-            <motion.button 
-              onClick={() => navigate('/add-company')}
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
-              className="px-5 py-2.5 text-sm font-semibold rounded-lg gradient-primary text-white shadow-xl shadow-[#4245f0]/20 flex items-center gap-2 hover:opacity-90 transition-all"
-            >
-              <Plus className="size-4" />
-              Add New Role
-            </motion.button>
-            
-            <div className="ml-4 pl-4 border-l border-white/10">
-              <div className="w-10 h-10 rounded-full border-2 border-[#4245f0]/50 bg-gradient-to-br from-primary/30 to-purple-500/30 flex items-center justify-center text-white font-bold text-sm">
-                FR
-              </div>
-            </div>
-          </div>
-        </div>
-      </header>
 
       <div className="max-w-[1600px] mx-auto px-6 py-8 space-y-8">
-        {/* Insights Bar */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {stats.map((stat, index) => {
-            const IconComponent = stat.icon;
-            const colorClasses = {
-              primary: 'bg-[#4245f0]/10 text-[#4245f0]',
-              emerald: 'bg-emerald-500/10 text-emerald-500',
-              amber: 'bg-amber-500/10 text-amber-500'
-            };
-            
-            return (
-              <motion.div 
-                key={stat.label}
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: index * 0.1 }}
-                className="glass p-6 rounded-xl flex items-center justify-between"
-              >
-                <div>
-                  <p className="text-slate-400 text-sm font-medium uppercase tracking-wider mb-1">{stat.label}</p>
-                  <h3 className="text-3xl font-extrabold">{stat.value}</h3>
-                </div>
-                <div className={`p-3 rounded-lg ${colorClasses[stat.color]}`}>
-                  <IconComponent className="size-6" />
-                </div>
-              </motion.div>
-            );
-          })}
-        </div>
-
+        {/* Header */}
+        <header className="mb-10 flex items-start justify-between gap-6">
+          <div className="flex items-center gap-4">
+            <div>
+              <h2 className="text-4xl font-extrabold text-white tracking-tight mb-2">Found Talent</h2>
+              <p className="text-slate-400 text-lg">Connect with top-tier professionals ready to join your team.</p>
+            </div>
+          </div>
+          <motion.button 
+            onClick={() => navigate('/add-company')}
+            whileHover={{ scale: 1.02 }}
+            whileTap={{ scale: 0.98 }}
+            className="shrink-0 py-3 px-6 bg-gradient-to-r from-[#6467f2] to-indigo-500 hover:from-indigo-500 hover:to-[#6467f2] text-white font-semibold rounded-xl flex items-center justify-center gap-2 transition-all indigo-glow"
+          >
+            <UserPlus className="size-4" />
+            <span>Add New Role</span>
+          </motion.button>
+        </header>
         {/* Roles Navigation */}
         <div className="flex items-center gap-4 overflow-x-auto pb-2 no-scrollbar">
           {roles.map((role) => {
@@ -237,16 +169,8 @@ const FoundTalent = () => {
                   <button className="flex-1 py-2.5 text-xs font-bold rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition-all">
                     View Profile
                   </button>
-                  <button className="p-2.5 rounded-lg bg-white/5 hover:bg-white/10 border border-white/10 transition-all group/btn">
-                    <Bookmark className="size-5 text-slate-400 group-hover/btn:text-[#4245f0]" />
-                  </button>
-                  <motion.button 
-                    whileHover={{ scale: 1.02 }}
-                    whileTap={{ scale: 0.98 }}
-                    className="flex-1 py-2.5 text-xs font-bold rounded-lg gradient-primary text-white shadow-lg shadow-[#4245f0]/20 hover:opacity-90 transition-all"
-                  >
-                    Contact
-                  </motion.button>
+              
+              
                 </div>
               </motion.div>
             ))}

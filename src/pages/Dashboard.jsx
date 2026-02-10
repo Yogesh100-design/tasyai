@@ -13,8 +13,7 @@ import {
   PlusCircle,
   Bookmark,
   BookmarkPlus,
-  ChevronDown,
-  Menu
+  ChevronDown
 } from 'lucide-react';
 import { filters, companies } from '../data/dashboardData';
 
@@ -54,17 +53,14 @@ const Dashboard = () => {
         <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
 
         {/* Main Content */}
-        <main className={`flex-1 overflow-y-auto h-full bg-[#020617] transition-all duration-300 ${isSidebarOpen ? 'ml-72' : 'ml-0'}`}>
+        <motion.main 
+          layout
+          className={`flex-1 overflow-y-auto h-full bg-[#020617] ${isSidebarOpen ? 'md:ml-72' : 'md:ml-20'}`}
+        >
           <div className="max-w-7xl mx-auto p-10 pb-20">
             {/* Header */}
             <header className="mb-10 flex items-start justify-between gap-6">
               <div className="flex items-center gap-4">
-                <button
-                  onClick={() => setIsSidebarOpen(!isSidebarOpen)}
-                  className="p-2 rounded-lg hover:bg-white/10 text-white transition-colors"
-                >
-                  <Menu className="size-6" />
-                </button>
                 <div>
                   <h2 className="text-4xl font-extrabold text-white tracking-tight mb-2">Discover Companies</h2>
                   <p className="text-slate-400 text-lg">Collaborate with high-growth startups looking for world-class talent.</p>
@@ -212,7 +208,7 @@ const Dashboard = () => {
               </motion.button>
             </div>
           </div>
-        </main>
+        </motion.main>
       </div>
     </div>
   );
