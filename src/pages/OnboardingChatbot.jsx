@@ -477,7 +477,7 @@ const OnboardingChatbot = ({ onComplete }) => {
             <motion.div 
               initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              className="flex items-end gap-3 ml-11"
+              className="flex items-end gap-3"
             >
               <div className="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center shrink-0 border border-white/10">
                 <Bot className="text-indigo-400 size-4" />
