@@ -15,7 +15,8 @@ import {
   Linkedin,
   Github,
   Award,
-  Briefcase
+  Briefcase,
+  Send
 } from 'lucide-react';
 import Sidebar from '../components/layout/Sidebar';
 import { candidates } from '../data/foundTalentData';
@@ -60,6 +61,20 @@ const ProfileExpansion = () => {
       away: 'bg-amber-500'
     };
     return colors[status] || 'bg-slate-500';
+  };
+
+  const [contactForm, setContactForm] = useState({ name: '', email: '', message: '' });
+
+  const handleContactSubmit = (e) => {
+    e.preventDefault();
+    const subject = `Inquiry regarding: ${candidate.name}`;
+    const body = `Name: ${contactForm.name}\nEmail: ${contactForm.email}\n\nMessage:\n${contactForm.message}`;
+    // fallback email since it's not in the data
+    const candidateEmail = `${candidate.name.toLowerCase().replace(/\s+/g, '.')}@example.com`;
+    const mailtoLink = `mailto:${candidateEmail}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    
+    window.location.href = mailtoLink;
+    setContactForm({ name: '', email: '', message: '' });
   };
 
   return (
@@ -184,6 +199,67 @@ const ProfileExpansion = () => {
                             ))}
                         </div>
                     </div>
+
+                    {/* Contact Form */}
+                    <motion.div 
+                        initial={{ opacity: 0, y: 20 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: 0.25 }}
+                        className="bg-[#0f172a] border border-[#4245f0]/30 rounded-2xl p-8 relative overflow-hidden"
+                    >
+                        <div className="absolute top-0 right-0 p-32 bg-[#4245f0]/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+                        
+                        <h3 className="mb-6 flex items-center gap-2 text-xl font-bold text-white relative z-10">
+                            <Mail className="size-5 text-[#4245f0]" />
+                            Contact {candidate.name.split(' ')[0]}
+                        </h3>
+                        
+                        <form onSubmit={handleContactSubmit} className="space-y-4 relative z-10">
+                            <div>
+                                <label className="block text-xs font-bold text-slate-400 uppercase mb-1">Your Name</label>
+                                <input 
+                                    required
+                                    type="text" 
+                                    value={contactForm.name}
+                                    onChange={(e) => setContactForm({...contactForm, name: e.target.value})}
+                                    className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white focus:ring-2 focus:ring-[#4245f0] outline-none transition-all placeholder:text-slate-600"
+                                    placeholder="e.g. Jordan Smith"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs font-bold text-slate-400 uppercase mb-1">Your Email</label>
+                                <input 
+                                    required
+                                    type="email" 
+                                    value={contactForm.email}
+                                    onChange={(e) => setContactForm({...contactForm, email: e.target.value})}
+                                    className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white focus:ring-2 focus:ring-[#4245f0] outline-none transition-all placeholder:text-slate-600"
+                                    placeholder="jordan@example.com"
+                                />
+                            </div>
+                            <div>
+                                <label className="block text-xs font-bold text-slate-400 uppercase mb-1">Message</label>
+                                <textarea 
+                                    required
+                                    rows="4"
+                                    value={contactForm.message}
+                                    onChange={(e) => setContactForm({...contactForm, message: e.target.value})}
+                                    className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white focus:ring-2 focus:ring-[#4245f0] outline-none transition-all resize-none placeholder:text-slate-600"
+                                    placeholder={`Hi ${candidate.name.split(' ')[0]}, I'd like to discuss a potential role...`}
+                                ></textarea>
+                            </div>
+                            
+                            <motion.button 
+                                whileHover={{ scale: 1.02 }}
+                                whileTap={{ scale: 0.98 }}
+                                type="submit"
+                                className="w-full py-3 rounded-xl bg-[#4245f0] hover:bg-[#4245f0]/90 text-white font-bold flex items-center justify-center gap-2 shadow-lg shadow-[#4245f0]/20 transition-all"
+                            >
+                                <Send className="size-4" />
+                                Send Message
+                            </motion.button>
+                        </form>
+                    </motion.div>
                 </div>
             </motion.div>
         </div>
