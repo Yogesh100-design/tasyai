@@ -12,8 +12,12 @@ import {
   ChevronRight,
   Mail,
   Lock,
-  Globe
+  Globe,
+  MessageSquare,
+  Send,
+  Loader2
 } from 'lucide-react';
+import { toast, Toaster } from 'react-hot-toast';
 
 const Settings = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -42,10 +46,86 @@ const Settings = () => {
     { id: 'Notifications', icon: Bell, label: 'Notifications' },
     { id: 'Privacy', icon: Shield, label: 'Privacy & Security' },
     { id: 'Billing', icon: CreditCard, label: 'Billing' },
+
+    { id: 'Feedback', icon: MessageSquare, label: 'Feedback' },
   ];
+
+  // Feedback Form State
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    phoneCode: '',
+    phoneNumber: '',
+    message: ''
+  });
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleFeedbackSubmit = async (e) => {
+    e.preventDefault();
+
+    if (
+      !formData.firstName.trim() ||
+      !formData.lastName.trim() ||
+      !formData.email.trim() ||
+      !formData.phoneCode.trim() ||
+      !formData.phoneNumber.trim() ||
+      !formData.message.trim()
+    ) {
+      toast.error("❌ Please fill out all fields before submitting.");
+      return;
+    }
+
+    setIsSubmitting(true);
+
+    try {
+      const res = await fetch(
+        "https://formsubmit.co/ajax/unisire.mainhub@gmail.com",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Accept: "application/json",
+          },
+          body: JSON.stringify({
+            firstName: formData.firstName,
+            lastName: formData.lastName,
+            email: formData.email,
+            phoneCode: formData.phoneCode,
+            phoneNumber: formData.phoneNumber,
+            message: formData.message,
+            _subject: "📩 New Settings Feedback Submission",
+          }),
+        }
+      );
+
+      const data = await res.json();
+
+      if (res.ok && data.success) {
+        toast.success(
+          "✅ Your feedback has been sent. Thank you!"
+        );
+        setFormData({
+          firstName: "",
+          lastName: "",
+          email: "",
+          phoneCode: "",
+          phoneNumber: "",
+          message: "",
+        });
+      } else {
+        toast.error("❌ Failed to send feedback. Please try again later.");
+      }
+    } catch (error) {
+      toast.error("⚠️ Network error. Please try again.");
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   return (
     <div className="bg-[#020617] text-slate-100 font-sans min-h-screen flex overflow-hidden">
+      <Toaster position="top-center" reverseOrder={false} />
       <Sidebar isOpen={isSidebarOpen} toggleSidebar={() => setIsSidebarOpen(!isSidebarOpen)} />
 
       <motion.main 
@@ -218,6 +298,100 @@ const Settings = () => {
                        <button className="px-8 py-3 bg-[#4245f0] hover:bg-[#4245f0]/90 text-white font-bold rounded-xl shadow-lg shadow-[#4245f0]/20 transition-all">
                          View Plans
                        </button>
+                    </section>
+                 )}
+
+                 {activeTab === 'Feedback' && (
+                    <section className="glass rounded-2xl p-8 border border-white/10 relative overflow-hidden">
+                       <div className="absolute top-0 right-0 p-32 bg-[#4245f0]/10 rounded-full blur-3xl -mr-16 -mt-16 pointer-events-none"></div>
+                       <h2 className="text-xl font-bold text-white mb-6 relative z-10">Share Your Feedback</h2>
+                       
+                       <form onSubmit={handleFeedbackSubmit} className="space-y-4 relative z-10 max-w-2xl">
+                          <div className="grid grid-cols-2 gap-4">
+                            <div>
+                              <label className="block text-xs font-bold text-slate-400 uppercase mb-1">First Name</label>
+                              <input 
+                                required
+                                type="text" 
+                                value={formData.firstName}
+                                onChange={(e) => setFormData({...formData, firstName: e.target.value})}
+                                className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white focus:ring-2 focus:ring-[#4245f0] outline-none transition-all placeholder:text-slate-600"
+                                placeholder="Jordan"
+                              />
+                            </div>
+                            <div>
+                              <label className="block text-xs font-bold text-slate-400 uppercase mb-1">Last Name</label>
+                              <input 
+                                required
+                                type="text" 
+                                value={formData.lastName}
+                                onChange={(e) => setFormData({...formData, lastName: e.target.value})}
+                                className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white focus:ring-2 focus:ring-[#4245f0] outline-none transition-all placeholder:text-slate-600"
+                                placeholder="Smith"
+                              />
+                            </div>
+                          </div>
+
+                          <div>
+                            <label className="block text-xs font-bold text-slate-400 uppercase mb-1">Email</label>
+                            <input 
+                              required
+                              type="email" 
+                              value={formData.email}
+                              onChange={(e) => setFormData({...formData, email: e.target.value})}
+                              className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white focus:ring-2 focus:ring-[#4245f0] outline-none transition-all placeholder:text-slate-600"
+                              placeholder="jordan@example.com"
+                            />
+                          </div>
+
+                          <div className="grid grid-cols-4 gap-4">
+                            <div className="col-span-1">
+                              <label className="block text-xs font-bold text-slate-400 uppercase mb-1">Code</label>
+                              <input 
+                                required
+                                type="text" 
+                                value={formData.phoneCode}
+                                onChange={(e) => setFormData({...formData, phoneCode: e.target.value})}
+                                className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white focus:ring-2 focus:ring-[#4245f0] outline-none transition-all placeholder:text-slate-600"
+                                placeholder="+1"
+                              />
+                            </div>
+                            <div className="col-span-3">
+                              <label className="block text-xs font-bold text-slate-400 uppercase mb-1">Phone Number</label>
+                              <input 
+                                required
+                                type="tel" 
+                                value={formData.phoneNumber}
+                                onChange={(e) => setFormData({...formData, phoneNumber: e.target.value})}
+                                className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white focus:ring-2 focus:ring-[#4245f0] outline-none transition-all placeholder:text-slate-600"
+                                placeholder="555-0123"
+                              />
+                            </div>
+                          </div>
+
+                          <div>
+                            <label className="block text-xs font-bold text-slate-400 uppercase mb-1">Message</label>
+                            <textarea 
+                              required
+                              rows="4"
+                              value={formData.message}
+                              onChange={(e) => setFormData({...formData, message: e.target.value})}
+                              className="w-full rounded-lg bg-white/5 border border-white/10 px-4 py-2.5 text-sm text-white focus:ring-2 focus:ring-[#4245f0] outline-none transition-all resize-none placeholder:text-slate-600"
+                              placeholder="Tell us what you think..."
+                            ></textarea>
+                          </div>
+                          
+                          <motion.button 
+                            whileHover={{ scale: 1.02 }}
+                            whileTap={{ scale: 0.98 }}
+                            type="submit"
+                            disabled={isSubmitting}
+                            className="w-full py-3 rounded-xl bg-[#4245f0] hover:bg-[#4245f0]/90 text-white font-bold flex items-center justify-center gap-2 shadow-lg shadow-[#4245f0]/20 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
+                          >
+                            {isSubmitting ? <Loader2 className="size-4 animate-spin" /> : <Send className="size-4" />}
+                            {isSubmitting ? 'Sending...' : 'Send Feedback'}
+                          </motion.button>
+                       </form>
                     </section>
                  )}
                </motion.div>
